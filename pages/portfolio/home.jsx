@@ -1,3 +1,5 @@
+import Head from "next/head";
+
 import React, { Component } from "react";
 
 import Header from "./components/Header.jsx";
@@ -13,6 +15,9 @@ class Home extends Component {
   render() {
     return (
       <div>
+        <Head>
+          <title>My Portfolio</title>
+        </Head>
         <Header />
         <HomeSection />
         <AboutSection />
