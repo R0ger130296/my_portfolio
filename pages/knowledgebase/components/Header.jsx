@@ -5,20 +5,24 @@ class Header extends Component {
   render() {
     return (
       <header className="bg-white shadow border-t-4 border-indigo-600">
-        <div className="container mx-auto px-6 py-4">
+        <div className="mx-auto px-6 py-3">
           <div className="flex items-center justify-between">
-            <div>
-              <button
-                className="flex items-center text-gray-800 hover:text-indigo-600"
-                onClick={() => Router.push("/knowledgebase/home")}
-              >
-                <i className="fas fa-terminal"></i>
-                <span className="mx-3 font-medium text-sm md:text-base">
-                  Knowledge Base
-                </span>
-              </button>
-            </div>
-            <div className="flex items-center -mx-2">
+            <button
+              className="flex items-center text-gray-800 hover:text-indigo-600"
+              onClick={() => Router.push("/portfolio/home")}
+            >
+              <i className="fas fa-info"></i>
+              <span className="mx-3 font-medium text-sm md:text-base">
+                My Portfolio
+              </span>
+            </button>
+            <button
+              className="text-gray-800 hover:text-indigo-600 border-gray-800 hover:border-indigo-600 border-b-2"
+              onClick={() => Router.push("/knowledgebase/home")}
+            >
+              Knowledge Base
+            </button>
+            <div className="flex items-center">
               <button
                 className="flex items-center mx-2 text-gray-800 hover:text-indigo-600"
                 onClick={() => window.open("https://github.com/vimhash")}
