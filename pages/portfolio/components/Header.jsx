@@ -10,7 +10,7 @@ class Header extends Component {
             <div>
               <button
                 className="flex items-center text-gray-800 hover:text-indigo-600"
-                onClick={() => Router.push("/knowledgebase/home")}
+                onClick={() => Router.push("/knowledgebase")}
               >
                 <i className="fas fa-terminal"></i>
                 <span className="mx-3 font-medium text-sm md:text-base">
@@ -33,15 +33,6 @@ class Header extends Component {
                 }
               >
                 <i className="fab fa-linkedin text-2xl"></i>
-              </button>
-
-              <button
-                className="flex items-center mx-2 text-gray-800 hover:text-indigo-600"
-                onClick={() =>
-                  window.open("https://www.instagram.com/vimhash/")
-                }
-              >
-                <i className="fab fa-instagram text-2xl"></i>
               </button>
             </div>
           </div>

@@ -28,13 +28,6 @@ class Footer extends Component {
           >
             <i className="fab fa-linkedin text-2xl"></i>
           </button>
-
-          <button
-            className="flex items-center mx-2 text-gray-600 hover:text-indigo-600"
-            onClick={() => window.open("https://www.instagram.com/vimhash/")}
-          >
-            <i className="fab fa-instagram text-2xl"></i>
-          </button>
         </div>
       </footer>
     );
