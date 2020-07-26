@@ -39,7 +39,6 @@ class Login extends Component {
         timer: 1000,
       });
     } else {
-      console.log(this.state.allUsers);
       this.state.allUsers.forEach((element) => {
         if (element.email === this.state.user_email) {
           if (element.password === this.state.user_pass) {
