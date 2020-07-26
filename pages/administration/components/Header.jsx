@@ -1,8 +1,14 @@
 import React, { Component } from "react";
 import Router from "next/router";
-import { logout } from "../../../services/_auth";
 
 class Header extends Component {
+  componentDidMount() {
+    if (!sessionStorage.getItem("token")) {
+      console.error("You don't have enough permissions");
+      Router.push("/administration");
+    }
+  }
+
   render() {
     return (
       <header>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import Router from "next/router";
 import Swal from "sweetalert2";
-import { db, auth } from "../../services/firebase";
+import { db } from "../../../services/_firebase";
 
 import Header from "../components/Header.jsx";
 
@@ -9,13 +9,19 @@ class UpdateProject extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      token: auth().currentUser,
       proj_sec: localStorage.getItem("proj_sec"),
       proj_tit: localStorage.getItem("proj_tit"),
       proj_des: localStorage.getItem("proj_des"),
       proj_pic_before: localStorage.getItem("proj_pic"),
       proj_pic: "",
     };
+  }
+
+  componentDidMount() {
+    if (!sessionStorage.getItem("token")) {
+      console.error("You don't have enough permissions");
+      Router.push("/administration");
+    }
   }
 
   changeHandler = (e) => {
@@ -48,11 +54,10 @@ class UpdateProject extends Component {
           title: "Project updated",
           showConfirmButton: false,
           timer: 1500,
-        }),
-        this.props.history.push("projects")
+        }).then(() => Router.push("/administration/projects"))
       )
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   };
 
@@ -64,6 +69,7 @@ class UpdateProject extends Component {
       proj_pic_before,
       newImage,
     } = this.state;
+
     return (
       <div className="bg-black text-white h-screen">
         <Header />
@@ -136,4 +142,4 @@ class UpdateProject extends Component {
   }
 }
 
-export default withRouter(UpdateProject);
+export default UpdateProject;

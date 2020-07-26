@@ -13,14 +13,19 @@ class GetAllPosts extends Component {
   }
 
   componentDidMount() {
-    db.ref("posts").on("value", (element) => {
-      let allPosts = [];
-      element.forEach((item) => {
-        allPosts.push(item.val());
+    if (!sessionStorage.getItem("token")) {
+      console.error("You don't have enough permissions");
+      Router.push("/administration");
+    } else {
+      db.ref("posts").on("value", (element) => {
+        let allPosts = [];
+        element.forEach((item) => {
+          allPosts.push(item.val());
+        });
+        allPosts.reverse();
+        this.setState({ loading: false, allPosts });
       });
-      allPosts.reverse();
-      this.setState({ loading: false, allPosts });
-    });
+    }
   }
 
   updatePost = (p_post_sec, p_post_tit, p_post_sum, p_post_con, p_post_pic) => {

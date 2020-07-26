@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Router from "next/router";
-import { auth } from "../../../services/_firebase";
 
 import Header from "../components/Header.jsx";
 import GetAllPosts from "../components/GetAllPosts";
@@ -8,9 +7,14 @@ import GetAllPosts from "../components/GetAllPosts";
 class Publications extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      // token: auth().currentUser,
-    };
+    this.state = {};
+  }
+
+  componentDidMount() {
+    if (!sessionStorage.getItem("token")) {
+      console.error("You don't have enough permissions");
+      Router.push("/administration");
+    }
   }
 
   render() {

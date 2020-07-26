@@ -1,15 +1,14 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
-import { db, auth } from "../../services/firebase";
+import { db } from "../../../services/_firebase";
 import Swal from "sweetalert2";
 
 import Header from "../components/Header.jsx";
+import Router from "next/router";
 
 class AddProject extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      token: auth().currentUser,
       proj_sec: "",
       proj_tit: "",
       proj_des: "",
@@ -22,20 +21,25 @@ class AddProject extends Component {
   };
 
   componentDidMount() {
-    db.ref("projects").once("value", (element) => {
-      let projects = [];
-      let proj_sec = [];
-      element.forEach((item) => {
-        projects.push(item.val());
+    if (!sessionStorage.getItem("token")) {
+      console.error("You don't have enough permissions");
+      Router.push("/administration");
+    } else {
+      db.ref("projects").once("value", (element) => {
+        let projects = [];
+        let proj_sec = [];
+        element.forEach((item) => {
+          projects.push(item.val());
+        });
+        projects.map((element) => proj_sec.push(element.proj_sec));
+        let id = proj_sec.reverse();
+        if (id.length === 0) {
+          this.setState({ proj_sec: 1 });
+        } else {
+          this.setState({ proj_sec: parseInt(id) + 1 });
+        }
       });
-      projects.map((element) => proj_sec.push(element.proj_sec));
-      let id = proj_sec.reverse();
-      if (id.length === 0) {
-        this.setState({ proj_sec: 1 });
-      } else {
-        this.setState({ proj_sec: parseInt(id) + 1 });
-      }
-    });
+    }
   }
 
   save = (e) => {
@@ -68,7 +72,7 @@ class AddProject extends Component {
             showConfirmButton: false,
             timer: 1500,
           }),
-          this.props.history.push("projects")
+          Router.push("/administration/projects")
         )
         .catch((error) => {
           Swal.fire("Oops... Something gone wrong!", "Try it again.", "error");
@@ -87,6 +91,7 @@ class AddProject extends Component {
 
   render() {
     const { proj_tit, proj_des, proj_pic } = this.state;
+
     return (
       <div className="bg-black text-white h-screen">
         <Header />
@@ -153,4 +158,4 @@ class AddProject extends Component {
   }
 }
 
-export default withRouter(AddProject);
+export default AddProject;

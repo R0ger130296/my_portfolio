@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
-import { auth } from "../../services/firebase";
+import Router from "next/router";
 
 import Header from "../components/Header.jsx";
 import GetAllProjects from "../components/GetAllProjects";
@@ -8,9 +7,13 @@ import GetAllProjects from "../components/GetAllProjects";
 class Projects extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      token: auth().currentUser,
-    };
+    this.state = {};
+  }
+  componentDidMount() {
+    if (!sessionStorage.getItem("token")) {
+      console.error("You don't have enough permissions");
+      Router.push("/administration");
+    }
   }
 
   render() {
@@ -19,7 +22,9 @@ class Projects extends Component {
         <Header />
         <div className="flex justify-between leading-none p-2 md:p-4">
           <div></div>
-          <button onClick={() => this.props.history.push("addproject")}>
+          <button
+            onClick={() => Router.push("/administration/projects/add_project")}
+          >
             <i className="fas fa-plus-square text-4xl text-blue-500 hover:text-blue-700"></i>
           </button>
         </div>
@@ -29,4 +34,4 @@ class Projects extends Component {
   }
 }
 
-export default withRouter(Projects);
+export default Projects;

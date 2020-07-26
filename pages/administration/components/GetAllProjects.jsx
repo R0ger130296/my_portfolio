@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import Router from "next/router";
 import Swal from "sweetalert2";
-import { db } from "../../services/firebase";
+import { db } from "../../../services/_firebase";
 
 class GetAllProjects extends Component {
   constructor(props) {
@@ -13,14 +13,19 @@ class GetAllProjects extends Component {
   }
 
   componentDidMount() {
-    db.ref("projects").on("value", (element) => {
-      let allProjects = [];
-      element.forEach((item) => {
-        allProjects.push(item.val());
+    if (!sessionStorage.getItem("token")) {
+      console.error("You don't have enough permissions");
+      Router.push("/administration");
+    } else {
+      db.ref("projects").on("value", (element) => {
+        let allProjects = [];
+        element.forEach((item) => {
+          allProjects.push(item.val());
+        });
+        allProjects.reverse();
+        this.setState({ loading: false, allProjects });
       });
-      allProjects.reverse();
-      this.setState({ loading: false, allProjects });
-    });
+    }
   }
 
   update = (p_proj_sec, p_proj_tit, p_proj_des, p_proj_pic) => {
@@ -28,7 +33,7 @@ class GetAllProjects extends Component {
     localStorage.setItem("proj_tit", p_proj_tit);
     localStorage.setItem("proj_des", p_proj_des);
     localStorage.setItem("proj_pic", p_proj_pic);
-    this.props.history.push("updateproject");
+    Router.push("/administration/projects/update_project");
   };
 
   delete = (id) => {
@@ -47,11 +52,16 @@ class GetAllProjects extends Component {
 
   render() {
     const { allProjects } = this.state;
-    const pic = require("../../assets/vimhash.png");
+
     if (this.state.loading) {
       return (
         <div className="w-full py-32 flex flex-col items-center justify-center">
-          <img className="w-32 h-32" id="loading" alt="loading" src={pic} />
+          <img
+            className="w-32 h-32"
+            id="loading"
+            alt="loading"
+            src="/administration/vimhash.png"
+          />
           <h1>loading...</h1>
         </div>
       );
@@ -97,4 +107,4 @@ class GetAllProjects extends Component {
   }
 }
 
-export default withRouter(GetAllProjects);
+export default GetAllProjects;

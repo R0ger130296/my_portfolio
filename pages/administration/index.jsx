@@ -1,16 +1,27 @@
 import React, { Component } from "react";
 import Router from "next/router";
-import { signin } from "../../services/_auth";
 import Swal from "sweetalert2";
+
+import { db } from "../../services/_firebase";
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user_name: "",
+      user_email: "",
       user_pass: "",
       allUsers: [],
     };
+  }
+
+  componentDidMount() {
+    db.ref("users").once("value", (element) => {
+      let allUsers = [];
+      element.forEach((item) => {
+        allUsers.push(item.val());
+      });
+      this.setState({ allUsers });
+    });
   }
 
   changeHandler = (e) => {
@@ -19,7 +30,7 @@ class Login extends Component {
 
   loginAccess = (e) => {
     e.preventDefault();
-    if (this.state.user_name === "" || this.state.user_pass === "") {
+    if (this.state.user_email === "" || this.state.user_pass === "") {
       Swal.fire({
         position: "center",
         icon: "error",
@@ -28,18 +39,24 @@ class Login extends Component {
         timer: 1000,
       });
     } else {
-      Router.push("/administration/dashboard");
-      // signin(this.state.user_name, this.state.user_pass)
-      //   .then(() => Router.push("/administration/dashboard"))
-      //   .catch((error) => {
-      //     Swal.fire("Oops... Wrong data!", "Try it again.", "error");
-      //     console.error(error);
-      //   });
+      console.log(this.state.allUsers);
+      this.state.allUsers.forEach((element) => {
+        if (element.email === this.state.user_email) {
+          if (element.password === this.state.user_pass) {
+            sessionStorage.setItem("token", JSON.stringify(element));
+            Router.push("/administration/dashboard");
+          } else {
+            console.error("Invalid password");
+          }
+        } else {
+          console.error("Email not-found");
+        }
+      });
     }
   };
 
   render() {
-    const { user_name, user_pass } = this.state;
+    const { user_email, user_pass } = this.state;
     return (
       <div className="w-full h-screen bg-cover flex items-center justify-center bg-gray-600">
         <div className="py-2 rounded p-8 bg-white flex flex-col">
@@ -58,8 +75,8 @@ class Login extends Component {
                 type="text"
                 placeholder="email@gmail.com"
                 autoComplete="off"
-                name="user_name"
-                value={user_name}
+                name="user_email"
+                value={user_email}
                 onChange={this.changeHandler}
               />
             </div>

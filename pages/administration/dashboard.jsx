@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import { auth, db } from "../../services/_firebase";
+import { db } from "../../services/_firebase";
 
 import Header from "./components/Header.jsx";
+import Router from "next/router";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // token: auth().currentUser,
       totalPublications: "",
       totalProjects: "",
       loading: true,
@@ -15,23 +15,28 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    db.ref("posts").on("value", (element) => {
-      let allPosts = [];
-      element.forEach((item) => {
-        allPosts.push(item.val());
+    if (!sessionStorage.getItem("token")) {
+      console.error("You don't have enough permissions");
+      Router.push("/administration");
+    } else {
+      db.ref("posts").on("value", (element) => {
+        let allPosts = [];
+        element.forEach((item) => {
+          allPosts.push(item.val());
+        });
+        let totalPublications = allPosts.length;
+        this.setState({ totalPublications });
       });
-      let totalPublications = allPosts.length;
-      this.setState({ totalPublications });
-    });
 
-    db.ref("projects").on("value", (element) => {
-      let allProjects = [];
-      element.forEach((item) => {
-        allProjects.push(item.val());
+      db.ref("projects").on("value", (element) => {
+        let allProjects = [];
+        element.forEach((item) => {
+          allProjects.push(item.val());
+        });
+        let totalProjects = allProjects.length;
+        this.setState({ totalProjects, loading: false });
       });
-      let totalProjects = allProjects.length;
-      this.setState({ totalProjects, loading: false });
-    });
+    }
   }
 
   render() {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Router from "next/router";
-import { db, auth } from "../../../services/_firebase";
+import { db } from "../../../services/_firebase";
 import Swal from "sweetalert2";
 import { Editor } from "@tinymce/tinymce-react";
 import moment from "moment";
@@ -11,7 +11,6 @@ class CreatePublication extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // token: auth().currentUser,
       post_sec: "",
       post_tit: "",
       post_sum: "",
@@ -29,20 +28,25 @@ class CreatePublication extends Component {
   };
 
   componentDidMount() {
-    db.ref("posts").once("value", (element) => {
-      let posts = [];
-      let post_sec = [];
-      element.forEach((item) => {
-        posts.push(item.val());
+    if (!sessionStorage.getItem("token")) {
+      console.error("You don't have enough permissions");
+      Router.push("/administration");
+    } else {
+      db.ref("posts").once("value", (element) => {
+        let posts = [];
+        let post_sec = [];
+        element.forEach((item) => {
+          posts.push(item.val());
+        });
+        posts.map((element) => post_sec.push(element.post_sec));
+        let id = post_sec.reverse();
+        if (id.length === 0) {
+          this.setState({ post_sec: 1 });
+        } else {
+          this.setState({ post_sec: parseInt(id) + 1 });
+        }
       });
-      posts.map((element) => post_sec.push(element.post_sec));
-      let id = post_sec.reverse();
-      if (id.length === 0) {
-        this.setState({ post_sec: 1 });
-      } else {
-        this.setState({ post_sec: parseInt(id) + 1 });
-      }
-    });
+    }
   }
 
   save = (e) => {

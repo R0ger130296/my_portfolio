@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Router from "next/router";
 import Swal from "sweetalert2";
-import { db, auth } from "../../../services/_firebase";
+import { db } from "../../../services/_firebase";
 import { Editor } from "@tinymce/tinymce-react";
 
 import Header from "../components/Header.jsx";
@@ -10,7 +10,6 @@ class UpdatePublication extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // token: auth().currentUser,
       post_sec: localStorage.getItem("post_sec"),
       post_tit: localStorage.getItem("post_tit"),
       post_sum: localStorage.getItem("post_sum"),
@@ -18,6 +17,13 @@ class UpdatePublication extends Component {
       post_pic_before: localStorage.getItem("post_pic"),
       post_pic: "",
     };
+  }
+
+  componentDidMount() {
+    if (!sessionStorage.getItem("token")) {
+      console.error("You don't have enough permissions");
+      Router.push("/administration");
+    }
   }
 
   changeHandler = (e) => {
