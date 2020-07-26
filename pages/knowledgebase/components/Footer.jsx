@@ -3,7 +3,7 @@ import React, { Component } from "react";
 class Footer extends Component {
   render() {
     return (
-      <footer className="bg-white container mx-auto px-6 py-4 flex justify-between items-center">
+      <footer className="bg-white px-6 py-4 flex justify-between items-center border-t-2 border-indigo-600">
         <div>
           <div className="text-gray-600">
             &copy; Designed with the{" "}

@@ -1,4 +1,4 @@
-import * as firebase from "firebase";
+import firebase from "firebase";
 
 const config = {
   apiKey: process.env.NEXT_PUBLIC_apikey,
@@ -10,5 +10,4 @@ if (!firebase.apps.length) {
   firebase.initializeApp(config);
 }
 
-export const auth = firebase.auth;
 export const db = firebase.database();
