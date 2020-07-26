@@ -9,10 +9,10 @@ class UpdateProject extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      proj_sec: localStorage.getItem("proj_sec"),
-      proj_tit: localStorage.getItem("proj_tit"),
-      proj_des: localStorage.getItem("proj_des"),
-      proj_pic_before: localStorage.getItem("proj_pic"),
+      proj_sec: "",
+      proj_tit: "",
+      proj_des: "",
+      proj_pic_before: "",
       proj_pic: "",
     };
   }
@@ -21,6 +21,13 @@ class UpdateProject extends Component {
     if (!sessionStorage.getItem("token")) {
       console.error("You don't have enough permissions");
       Router.push("/administration");
+    } else {
+      this.setState({
+        proj_sec: localStorage.getItem("proj_sec"),
+        proj_tit: localStorage.getItem("proj_tit"),
+        proj_des: localStorage.getItem("proj_des"),
+        proj_pic_before: localStorage.getItem("proj_pic"),
+      });
     }
   }
 
