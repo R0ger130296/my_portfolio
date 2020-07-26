@@ -10,11 +10,11 @@ class UpdatePublication extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      post_sec: localStorage.getItem("post_sec"),
-      post_tit: localStorage.getItem("post_tit"),
-      post_sum: localStorage.getItem("post_sum"),
-      post_con: localStorage.getItem("post_con"),
-      post_pic_before: localStorage.getItem("post_pic"),
+      post_sec: "",
+      post_tit: "",
+      post_sum: "",
+      post_con: "",
+      post_pic_before: "",
       post_pic: "",
     };
   }
@@ -23,6 +23,14 @@ class UpdatePublication extends Component {
     if (!sessionStorage.getItem("token")) {
       console.error("You don't have enough permissions");
       Router.push("/administration");
+    } else {
+      this.setState({
+        post_sec: localStorage.getItem("post_sec"),
+        post_tit: localStorage.getItem("post_tit"),
+        post_sum: localStorage.getItem("post_sum"),
+        post_con: localStorage.getItem("post_con"),
+        post_pic_before: localStorage.getItem("post_pic"),
+      });
     }
   }
 
