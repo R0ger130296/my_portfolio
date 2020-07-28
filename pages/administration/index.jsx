@@ -1,3 +1,4 @@
+import Head from "next/head";
 import React, { Component } from "react";
 import Router from "next/router";
 import Swal from "sweetalert2";
@@ -58,6 +59,9 @@ class Login extends Component {
     const { user_email, user_pass } = this.state;
     return (
       <div className="w-full h-screen bg-cover flex items-center justify-center bg-gray-600">
+        <Head>
+          <title>Admin control</title>
+        </Head>
         <div className="py-2 rounded p-8 bg-white flex flex-col">
           <div className="flex justify-center">
             <img
