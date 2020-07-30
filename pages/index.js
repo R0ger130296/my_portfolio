@@ -3,11 +3,11 @@ import Router from "next/router";
 
 class Home extends Component {
   componentDidMount() {
-    Router.push("/portfolio");
+    Router.push("/knowledgebase");
   }
 
   render() {
-    return <div></div>;
+    return <></>;
   }
 }
 
