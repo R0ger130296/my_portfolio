@@ -2,6 +2,7 @@ import Head from "next/head";
 import React, { Component } from "react";
 import Swal from "sweetalert2";
 import { db } from "../../../services/_firebase";
+import Router from "next/router";
 
 class DoYouLikeMe_En extends Component {
   constructor(props) {
@@ -9,7 +10,6 @@ class DoYouLikeMe_En extends Component {
     this.state = {
       loading: true,
       question: null,
-      base: null,
       counter: 0,
       show_options: false,
       allQuestions: [],
@@ -70,7 +70,7 @@ class DoYouLikeMe_En extends Component {
 
     if (this.state.loading) {
       return (
-        <div className="w-full py-32 flex flex-col items-center justify-center">
+        <div className="w-full h-full py-32 flex flex-col items-center justify-center">
           <img
             className="w-32 h-32"
             id="loading"
@@ -95,9 +95,6 @@ class DoYouLikeMe_En extends Component {
         <div>
           <h1 className="uppercase font-bold py-1 px-2 my-2 bg-gray-300 bg-opacity-50 text-2xl w-64 text-center">
             {question}
-          </h1>
-          <h1 className="uppercase font-bold py-1 px-2 my-2 bg-gray-300 bg-opacity-50 text-md w-64 text-center">
-            {base}
           </h1>
           {show_options ? (
             <div className="flex w-full justify-between">
@@ -135,7 +132,7 @@ class DoYouLikeMe_En extends Component {
           </div> */}
           <button
             className="bg-gray-300 text-gray-800 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center mb-2"
-            onClick={() => this.props.history.push("")}
+            onClick={() => Router.push("/freetimeideas")}
           >
             <i className="fas fa-undo text-sm mr-2"></i>
             Back
