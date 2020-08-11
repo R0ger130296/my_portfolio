@@ -17,16 +17,21 @@ class DoYouLikeMe_En extends Component {
   }
 
   componentDidMount = async () => {
-    await db.ref("questions").once("value", (element) => {
-      let allQuestions = [];
+    if (!sessionStorage.getItem("token")) {
+      console.error("You don't have enough permissions");
+      Router.push("/freetimeideas");
+    } else {
+      await db.ref("questions").once("value", (element) => {
+        let allQuestions = [];
 
-      element.forEach((item) => {
-        allQuestions.push(item.val());
+        element.forEach((item) => {
+          allQuestions.push(item.val());
+        });
+
+        this.setState({ allQuestions, loading: false });
       });
-
-      this.setState({ loading: false, allQuestions });
-    });
-    this.showQuestions();
+      this.showQuestions();
+    }
   };
 
   showQuestions() {
@@ -132,7 +137,7 @@ class DoYouLikeMe_En extends Component {
           </div> */}
           <button
             className="bg-gray-300 text-gray-800 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center mb-2"
-            onClick={() => Router.push("/freetimeideas")}
+            onClick={() => Router.push("/freetimeideas/dashboard")}
           >
             <i className="fas fa-undo text-sm mr-2"></i>
             Back
