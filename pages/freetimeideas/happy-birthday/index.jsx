@@ -120,6 +120,10 @@ class HappyBirthday_En extends Component {
                 <i className="fas fa-heart mr-2"></i>
                 Confirmo para que Johao confirme :v
               </button>
+              <button
+                className="bg-gray-300 text-gray-800 font-bold rounded border-b-2 border-indigo-500 hover:border-indigo-600 hover:bg-indigo-500 hover:text-white shadow-md py-2 px-6 items-center mb-2 w-42"
+                onClick={() => Router.push("/freetimeideas/songs")}
+              ></button>
             </div>
           ) : (
             <>
