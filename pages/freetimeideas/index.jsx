@@ -90,7 +90,12 @@ class Login extends Component {
   render() {
     const { user_email, user_pass } = this.state;
     return (
-      <div className="w-full h-screen bg-cover flex items-center justify-center bg-gray-600">
+      <div
+        className="w-full h-screen bg-cover flex items-center justify-center bg-gray-600"
+        style={{
+          backgroundImage: `url("/freetimeideas/login-background.jpg")`,
+        }}
+      >
         <Head>
           <title>Free Time Ideas</title>
         </Head>
