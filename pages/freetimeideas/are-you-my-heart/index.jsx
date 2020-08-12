@@ -8,6 +8,7 @@ class MyHeartEn extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loading: true,
       myheart_sec: "",
       myheart_name: "",
     };
@@ -18,7 +19,13 @@ class MyHeartEn extends Component {
   };
 
   componentDidMount() {
-    this.sequence();
+    if (!sessionStorage.getItem("token")) {
+      console.error("You don't have enough permissions");
+      Router.push("/freetimeideas");
+    } else {
+      this.sequence();
+      this.setState({ loading: false });
+    }
   }
 
   sequence = () => {
@@ -168,7 +175,7 @@ class MyHeartEn extends Component {
         <div className="flex flex-col fixed bottom-0 items-center text-white">
           <button
             className="bg-gray-300 text-gray-800 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center mb-2"
-            onClick={() => Router.push("/freetimeideas")}
+            onClick={() => Router.push("/freetimeideas/dashboard")}
           >
             <i className="fas fa-undo text-sm mr-2"></i>
             Back
