@@ -41,15 +41,27 @@ class Login extends Component {
       });
     } else {
       this.state.allUsers.forEach((element) => {
-        if (element.email === this.state.user_email) {
-          if (element.password === this.state.user_pass) {
-            sessionStorage.setItem("token", JSON.stringify(element));
-            Router.push("/administration/dashboard");
+        if (element.rol === "administrador") {
+          if (element.email === this.state.user_email) {
+            if (element.password === this.state.user_pass) {
+              sessionStorage.setItem("token", JSON.stringify(element));
+
+              Router.push("/administration/dashboard");
+            } else {
+              console.error("Invalid password");
+              // Swal.fire("Oops... Invalid password!", "Try again.", "error");
+            }
           } else {
-            console.error("Invalid password");
+            console.error("Email not-found");
+            // Swal.fire("Oops... Email not found!", "Try again.", "error");
           }
         } else {
-          console.error("Email not-found");
+          console.error("You don't have permission to access");
+          // Swal.fire(
+          //   "Oops... You don't have permission to access!",
+          //   "Contact with the administration.",
+          //   "warning"
+          // );
         }
       });
     }
