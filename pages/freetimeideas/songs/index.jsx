@@ -1,8 +1,7 @@
 import Head from "next/head";
 import React, { Component } from "react";
-import Swal from "sweetalert2";
 
-import Router from "next/router";
+import { user_authentication } from "../../../services/_webService";
 
 class Songs extends Component {
   constructor(props) {
@@ -13,10 +12,12 @@ class Songs extends Component {
   }
 
   componentDidMount = async () => {
-    if (!sessionStorage.getItem("token")) {
-      console.error("You don't have enough permissions");
-      Router.push("/freetimeideas");
-    } else {
+    if (
+      user_authentication(
+        sessionStorage.getItem("secret_token"),
+        "freetimeideas"
+      ) !== false
+    ) {
       this.setState({ loading: false });
     }
   };

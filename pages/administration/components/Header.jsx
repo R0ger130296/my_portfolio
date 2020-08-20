@@ -1,11 +1,16 @@
 import React, { Component } from "react";
 import Router from "next/router";
+import { user_authentication } from "../../../services/_webService";
 
 class Header extends Component {
   componentDidMount() {
-    if (!sessionStorage.getItem("token")) {
-      console.error("You don't have enough permissions");
-      Router.push("/administration");
+    if (
+      user_authentication(
+        sessionStorage.getItem("secret_token"),
+        "administration"
+      ) !== false
+    ) {
+      console.log("ok");
     }
   }
 

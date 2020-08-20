@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 
 import Header from "../components/Header.jsx";
 import Router from "next/router";
+import { user_authentication } from "../../../services/_webService";
 
 class AddProject extends Component {
   constructor(props) {
@@ -21,10 +22,12 @@ class AddProject extends Component {
   };
 
   componentDidMount() {
-    if (!sessionStorage.getItem("token")) {
-      console.error("You don't have enough permissions");
-      Router.push("/administration");
-    } else {
+    if (
+      user_authentication(
+        sessionStorage.getItem("secret_token"),
+        "administration"
+      ) !== false
+    ) {
       db.ref("projects").once("value", (element) => {
         let projects = [];
         let proj_sec = [];

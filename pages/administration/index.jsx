@@ -4,6 +4,7 @@ import Router from "next/router";
 import Swal from "sweetalert2";
 
 import { db } from "../../services/_firebase";
+import jwt from "jsonwebtoken";
 
 class Login extends Component {
   constructor(props) {
@@ -40,12 +41,21 @@ class Login extends Component {
         timer: 1000,
       });
     } else {
+      let token;
+
       this.state.allUsers.forEach((element) => {
         if (element.rol === "administrador") {
           if (element.email === this.state.user_email) {
             if (element.password === this.state.user_pass) {
-              sessionStorage.setItem("token", JSON.stringify(element));
-
+              token = jwt.sign(
+                { data: element.email },
+                process.env.NEXT_PUBLIC_keyjwt,
+                {
+                  algorithm: "HS256",
+                  expiresIn: 300,
+                }
+              );
+              sessionStorage.setItem("secret_token", token);
               Router.push("/administration/dashboard");
             } else {
               console.error("Invalid password");
