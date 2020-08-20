@@ -5,6 +5,7 @@ import { db } from "../../../services/_firebase";
 import { Editor } from "@tinymce/tinymce-react";
 
 import Header from "../components/Header.jsx";
+import { user_authentication } from "../../../services/_webService";
 
 class UpdatePublication extends Component {
   constructor(props) {
@@ -20,10 +21,12 @@ class UpdatePublication extends Component {
   }
 
   componentDidMount() {
-    if (!sessionStorage.getItem("token")) {
-      console.error("You don't have enough permissions");
-      Router.push("/administration");
-    } else {
+    if (
+      user_authentication(
+        sessionStorage.getItem("secret_token"),
+        "administration"
+      ) !== false
+    ) {
       this.setState({
         post_sec: localStorage.getItem("post_sec"),
         post_tit: localStorage.getItem("post_tit"),

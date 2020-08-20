@@ -4,6 +4,8 @@ import Router from "next/router";
 import Header from "../components/Header.jsx";
 import GetAllPosts from "../components/GetAllPosts";
 
+import { user_authentication } from "../../../services/_webService";
+
 class Publications extends Component {
   constructor(props) {
     super(props);
@@ -11,9 +13,13 @@ class Publications extends Component {
   }
 
   componentDidMount() {
-    if (!sessionStorage.getItem("token")) {
-      console.error("You don't have enough permissions");
-      Router.push("/administration");
+    if (
+      user_authentication(
+        sessionStorage.getItem("secret_token"),
+        "administration"
+      ) !== false
+    ) {
+      console.log("ok");
     }
   }
 

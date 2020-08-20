@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 
 import { db } from "../../services/_firebase";
 import moment from "moment";
+import jwt from "jsonwebtoken";
 
 class Login extends Component {
   constructor(props) {
@@ -34,13 +35,20 @@ class Login extends Component {
       });
 
       data.map((element) => hist_sec.push(element.hist_sec));
-      let id = hist_sec.reverse();
+
+      hist_sec.sort(this.fromLargestToSmallest);
+      let id = hist_sec;
+
       if (id.length === 0) {
         this.setState({ hist_sec: 1 });
       } else {
         this.setState({ hist_sec: parseInt(id) + 1 });
       }
     });
+  }
+
+  fromLargestToSmallest(elem1, elem2) {
+    return elem2 - elem1;
   }
 
   changeHandler = (e) => {
@@ -58,6 +66,8 @@ class Login extends Component {
         timer: 1000,
       });
     } else {
+      let token;
+
       this.state.allUsers.forEach((element) => {
         if (
           element.rol === "administrador" ||
@@ -65,15 +75,24 @@ class Login extends Component {
         ) {
           if (element.email === this.state.user_email) {
             if (element.password === this.state.user_pass) {
-              sessionStorage.setItem("token", JSON.stringify(element.email));
-
               db.ref("login-history/history" + this.state.hist_sec)
                 .set({
                   hist_sec: this.state.hist_sec,
                   hist_user: this.state.user_email,
                   hist_date: moment().format("MMMM Do YYYY, h:mm:ss a"),
                 })
-                .then(Router.push("/freetimeideas/dashboard"))
+                .then(
+                  (token = jwt.sign(
+                    { data: element.email },
+                    process.env.NEXT_PUBLIC_keyjwt,
+                    {
+                      algorithm: "HS256",
+                      expiresIn: 900,
+                    }
+                  )),
+                  sessionStorage.setItem("secret_token", token),
+                  Router.push("/freetimeideas/dashboard")
+                )
                 .catch((error) => {
                   console.error(error);
                   Swal.fire(

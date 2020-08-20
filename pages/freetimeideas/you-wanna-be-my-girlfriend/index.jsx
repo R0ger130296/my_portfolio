@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import Swal from "sweetalert2";
 import Router from "next/router";
 
+import { user_authentication } from "../../../services/_webService";
+
 class GfPageEn extends Component {
   constructor(props) {
     super(props);
@@ -12,10 +14,12 @@ class GfPageEn extends Component {
   }
 
   componentDidMount() {
-    if (!sessionStorage.getItem("token")) {
-      console.error("You don't have enough permissions");
-      Router.push("/freetimeideas");
-    } else {
+    if (
+      user_authentication(
+        sessionStorage.getItem("secret_token"),
+        "freetimeideas"
+      ) !== false
+    ) {
       this.setState({ loading: false });
     }
   }

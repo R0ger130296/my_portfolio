@@ -6,6 +6,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import moment from "moment";
 
 import Header from "../components/Header.jsx";
+import { user_authentication } from "../../../services/_webService";
 
 class CreatePublication extends Component {
   constructor(props) {
@@ -28,10 +29,12 @@ class CreatePublication extends Component {
   };
 
   componentDidMount() {
-    if (!sessionStorage.getItem("token")) {
-      console.error("You don't have enough permissions");
-      Router.push("/administration");
-    } else {
+    if (
+      user_authentication(
+        sessionStorage.getItem("secret_token"),
+        "administration"
+      ) !== false
+    ) {
       db.ref("posts").once("value", (element) => {
         let posts = [];
         let post_sec = [];

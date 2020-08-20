@@ -1,10 +1,30 @@
 import React, { Component } from "react";
 import Router from "next/router";
+import Swal from "sweetalert2";
 
 class Header extends Component {
-  logout = async () => {
-    await sessionStorage.clear("token");
-    Router.push("/freetimeideas");
+  logout = () => {
+    Swal.fire({
+      title: "Are you sure you want to go out?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, please!",
+      cancelButtonText: "Return",
+      cancelButtonColor: "#d33",
+    }).then((result) => {
+      if (result.value) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Successfully closed session!",
+          showConfirmButton: false,
+          timer: 1000,
+        }).then(async () => {
+          await sessionStorage.clear("secret_token");
+          Router.push("/freetimeideas");
+        });
+      }
+    });
   };
 
   render() {

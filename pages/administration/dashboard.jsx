@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { db } from "../../services/_firebase";
 
 import Header from "./components/Header.jsx";
-import Router from "next/router";
+import { user_authentication } from "../../services/_webService";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -15,10 +15,12 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    if (!sessionStorage.getItem("token")) {
-      console.error("You don't have enough permissions");
-      Router.push("/administration");
-    } else {
+    if (
+      user_authentication(
+        sessionStorage.getItem("secret_token"),
+        "administration"
+      ) !== false
+    ) {
       db.ref("posts").on("value", (element) => {
         let allPosts = [];
         element.forEach((item) => {

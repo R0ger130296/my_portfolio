@@ -3,6 +3,8 @@ import Router from "next/router";
 import Swal from "sweetalert2";
 import { db } from "../../../services/_firebase";
 
+import { user_authentication } from "../../../services/_webService";
+
 class GetAllProjects extends Component {
   constructor(props) {
     super(props);
@@ -13,10 +15,12 @@ class GetAllProjects extends Component {
   }
 
   componentDidMount() {
-    if (!sessionStorage.getItem("token")) {
-      console.error("You don't have enough permissions");
-      Router.push("/administration");
-    } else {
+    if (
+      user_authentication(
+        sessionStorage.getItem("secret_token"),
+        "administration"
+      ) !== false
+    ) {
       db.ref("projects").on("value", (element) => {
         let allProjects = [];
         element.forEach((item) => {
