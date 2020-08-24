@@ -16,11 +16,11 @@ class Home extends Component {
         </Head>
         <Header />
         <section className="w-full flex lg:px-12 px-4 lg:flex-row md:flex-row flex-col">
-          <div className="lg:w-3/4 md:w-1/2 w-full">
+          <div className="lg:w-5/6 md:w-1/2 w-full">
             <GetAllPosts />
           </div>
 
-          <div className="lg:w-1/4 md:w-1/2 w-full py-6 flex justify-center lg:border-l-2 md:border-l-2 border-t-2 border-indigo-600">
+          <div className="lg:w-1/6 md:w-1/2 w-full py-6 flex justify-center">
             <RightSidebar />
           </div>
         </section>

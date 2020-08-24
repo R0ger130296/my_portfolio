@@ -5,11 +5,6 @@ class RightSidebar extends Component {
     return (
       <div>
         <div className="bg-white shadow-lg rounded-lg overflow-hidden w-64">
-          <img
-            className="w-full h-56 object-cover object-center"
-            src="/knowledgebase/pic.jpg"
-            alt="pic"
-          />
           <div className="px-6 py-3 bg-gray-900 flex items-center">
             <i className="fas fa-terminal h-6 w-6 text-white fill-current"></i>
             <h1 className="mx-3 text-white font-semibold text-lg">Focusing</h1>

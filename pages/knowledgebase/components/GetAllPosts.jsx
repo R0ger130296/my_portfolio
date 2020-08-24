@@ -32,7 +32,7 @@ class GetAllPosts extends Component {
             className="w-32 h-32"
             id="loading"
             alt="loading"
-            src="/knowledgebase/vimhash.png"
+            src="/vimhash.webp"
           />
           <h1>loading...</h1>
         </div>
