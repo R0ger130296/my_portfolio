@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React, { Component } from "react";
 import Swal from "sweetalert2";
-import { db } from "../../../services/_firebase";
+import { db } from "../services/_firebase";
 import Router from "next/router";
 
 import { user_authentication } from "../../../services/_webService";

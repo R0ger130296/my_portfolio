@@ -56,7 +56,7 @@ class GfPageEn extends Component {
             className="w-32 h-32"
             id="loading"
             alt="loading"
-            src="/freetimeideas/vimhash.webp"
+            src="/vimhash.webp"
           />
           <h1>loading...</h1>
         </div>
@@ -84,7 +84,7 @@ class GfPageEn extends Component {
             </button>
 
             <button
-              className="bg-gray-300 text-gray-800 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
+              className="bg-gray-300 text-gray-800 font-bold rounded border-b-2 border-red-500 shadow-md py-2 px-6 inline-flex items-center"
               onMouseEnter={() => this.changePosition("move")}
               onClick={() => this.changePosition("move")}
             >

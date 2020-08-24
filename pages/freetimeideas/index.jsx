@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import Router from "next/router";
 import Swal from "sweetalert2";
 
-import { db } from "../../services/_firebase";
+import { db } from "./services/_firebase";
 import moment from "moment";
 import jwt from "jsonwebtoken";
 
@@ -69,10 +69,7 @@ class Login extends Component {
       let token;
 
       this.state.allUsers.forEach((element) => {
-        if (
-          element.rol === "administrador" ||
-          element.rol === "encebolladito"
-        ) {
+        if (element.rol === "freetimeideas") {
           if (element.email === this.state.user_email) {
             if (element.password === this.state.user_pass) {
               db.ref("login-history/history" + this.state.hist_sec)

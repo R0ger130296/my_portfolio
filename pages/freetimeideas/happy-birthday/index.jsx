@@ -2,7 +2,6 @@ import Head from "next/head";
 import React, { Component } from "react";
 import Swal from "sweetalert2";
 
-import Router from "next/router";
 import { Carousel } from "react-responsive-carousel";
 import { user_authentication } from "../../../services/_webService";
 
@@ -59,7 +58,7 @@ class HappyBirthday_En extends Component {
             className="w-32 h-32"
             id="loading"
             alt="loading"
-            src="/freetimeideas/vimhash.webp"
+            src="/vimhash.webp"
           />
           <h1>loading...</h1>
         </div>
@@ -78,7 +77,7 @@ class HappyBirthday_En extends Component {
         </Head>
         <div className="flex xl:flex-row lg:flex-row flex-col">
           {this.state.agreement ? (
-            <div className="flex flex-col  max-w-lg items-center justify-center">
+            <div className="flex flex-col items-center justify-center">
               <div className="bg-white py-3 px-3 my-3 mx-3 rounded-lg bg-opacity-50 border-2">
                 <h1 className="text-center font-bold uppercase">
                   Agreement between you and I :3

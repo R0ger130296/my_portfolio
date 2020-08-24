@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React, { Component } from "react";
 import Swal from "sweetalert2";
-import { db } from "../../../services/_firebase";
+import { db } from "../services/_firebase";
 import Router from "next/router";
 
 import { user_authentication } from "../../../services/_webService";
@@ -84,7 +84,7 @@ class DoYouLikeMe_En extends Component {
             className="w-32 h-32"
             id="loading"
             alt="loading"
-            src="/administration/vimhash.png"
+            src="/vimhash.webp"
           />
           <h1>loading...</h1>
         </div>
