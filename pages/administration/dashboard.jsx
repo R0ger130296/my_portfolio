@@ -57,7 +57,7 @@ class Dashboard extends Component {
       );
     }
     return (
-      <div className="w-full h-screen bg-black">
+      <div>
         <Header />
         <section>
           <div className="w-full mx-auto">

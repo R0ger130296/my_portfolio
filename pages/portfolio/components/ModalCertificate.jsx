@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Modal from "react-modal";
 
 Modal.setAppElement("#ModalCertificate");
-// appElement = { el };
 
 class ModalCertificate extends Component {
   constructor(props) {

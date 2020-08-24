@@ -104,7 +104,7 @@ class CreatePublication extends Component {
   render() {
     const { post_tit, post_sum, post_con, post_pic } = this.state;
     return (
-      <div className="bg-black text-white">
+      <div>
         <Header />
         <section className="flex flex-col p-4">
           <form className="py-2 px-16 w-full flex">

@@ -26,7 +26,7 @@ class Header extends Component {
               <img
                 alt="pic"
                 className="border border-black rounded-full w-6 h-6"
-                src="/administration/vimhash.png"
+                src="/vimhash.webp"
               />
               <button className="font-bold text-gray-100 px-4 dropdown">
                 Hi, Johao

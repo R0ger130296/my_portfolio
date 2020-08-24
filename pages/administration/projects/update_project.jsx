@@ -15,6 +15,7 @@ class UpdateProject extends Component {
       proj_des: "",
       proj_pic_before: "",
       proj_pic: "",
+      proj_link: "",
     };
   }
 
@@ -30,6 +31,7 @@ class UpdateProject extends Component {
         proj_tit: localStorage.getItem("proj_tit"),
         proj_des: localStorage.getItem("proj_des"),
         proj_pic_before: localStorage.getItem("proj_pic"),
+        proj_link: localStorage.getItem("proj_link"),
       });
     }
   }
@@ -56,6 +58,7 @@ class UpdateProject extends Component {
         proj_pic: this.state.proj_pic
           ? this.state.proj_pic
           : this.state.proj_pic_before,
+        proj_link: this.state.proj_link,
       })
       .then(
         Swal.fire({
@@ -78,10 +81,11 @@ class UpdateProject extends Component {
       proj_pic,
       proj_pic_before,
       newImage,
+      proj_link,
     } = this.state;
 
     return (
-      <div className="bg-black text-white h-screen">
+      <div>
         <Header />
         <section className="flex flex-col p-4">
           <form className="py-2 px-16 w-full flex">
@@ -107,6 +111,21 @@ class UpdateProject extends Component {
                     type="text"
                     name="proj_des"
                     value={proj_des}
+                    onChange={this.changeHandler}
+                    autoComplete="off"
+                  />
+                </div>
+              </div>
+              <div className="px-1 py-1">
+                <h1 className="uppercase font-bold py-2 px-2">
+                  Link código fuente *
+                </h1>
+                <div className="px-1 flex-1">
+                  <input
+                    className="w-full border border-gray-500 rounded py-2 px-4 text-black"
+                    type="text"
+                    name="proj_link"
+                    value={proj_link}
                     onChange={this.changeHandler}
                     autoComplete="off"
                   />

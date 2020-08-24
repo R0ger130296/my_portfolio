@@ -32,11 +32,12 @@ class GetAllProjects extends Component {
     }
   }
 
-  update = (p_proj_sec, p_proj_tit, p_proj_des, p_proj_pic) => {
+  update = (p_proj_sec, p_proj_tit, p_proj_des, p_proj_pic, p_proj_link) => {
     localStorage.setItem("proj_sec", p_proj_sec);
     localStorage.setItem("proj_tit", p_proj_tit);
     localStorage.setItem("proj_des", p_proj_des);
     localStorage.setItem("proj_pic", p_proj_pic);
+    localStorage.setItem("proj_link", p_proj_link);
     Router.push("/administration/projects/update_project");
   };
 
@@ -75,16 +76,19 @@ class GetAllProjects extends Component {
         <div className="flex items-center justify-center mt-10">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {allProjects.map((proj) => (
-              <div className="w-full border-white border" key={proj.proj_sec}>
+              <div
+                className="w-full bg-white border-2 border-black"
+                key={proj.proj_sec}
+              >
                 <div className="flex items-center justify-center h-56 bg-white border-b-8 border-teal-400 rounded-md overflow-hidden">
                   <img alt="pic" src={proj.proj_pic} />
                 </div>
-                <button className="bg-gray-700 mt-5 rounded-md overflow-hidden transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
+                <div className="bg-gray-700 mt-5 rounded-md overflow-hidden">
                   <div className="flex flex-col justify-center py-2 px-3 text-center text-sm">
                     <span className="text-gray-300">{proj.proj_tit}</span>
                     <p className="block text-gray-500 mt-2">{proj.proj_des}</p>
                   </div>
-                </button>
+                </div>
                 <div className="flex items-center justify-between leading-none p-2 md:p-4">
                   <i
                     className="fas fa-trash-alt text-red-500 hover:text-red-700 cursor-pointer"
@@ -97,7 +101,8 @@ class GetAllProjects extends Component {
                         proj.proj_sec,
                         proj.proj_tit,
                         proj.proj_des,
-                        proj.proj_pic
+                        proj.proj_pic,
+                        proj.proj_link
                       )
                     }
                   ></i>

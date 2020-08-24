@@ -89,7 +89,7 @@ class UpdatePublication extends Component {
       newImage,
     } = this.state;
     return (
-      <div className="bg-black text-white">
+      <div>
         <Header />
         <section className="flex flex-col p-4">
           <form className="py-2 px-16 w-full flex">

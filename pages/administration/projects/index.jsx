@@ -23,7 +23,7 @@ class Projects extends Component {
 
   render() {
     return (
-      <div className="bg-black h-screen">
+      <div>
         <Header />
         <div className="flex justify-between leading-none p-2 md:p-4">
           <div></div>

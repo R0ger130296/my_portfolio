@@ -16,7 +16,7 @@ class ProjectsSection extends Component {
       element.forEach((item) => {
         allProjects.push(item.val());
       });
-      this.setState({ loading: false, allProjects });
+      this.setState({ allProjects, loading: false });
     });
   };
 
@@ -30,7 +30,7 @@ class ProjectsSection extends Component {
             className="w-32 h-32"
             id="loading"
             alt="loading"
-            src="/portfolio/vimhash.png"
+            src="/vimhash.webp"
           />
           <h1>loading...</h1>
         </div>
@@ -47,13 +47,19 @@ class ProjectsSection extends Component {
                   <div className="flex items-center justify-center h-56 bg-white border-b-8 border-teal-400 rounded-md overflow-hidden">
                     <img alt="pic" src={proj.proj_pic} />
                   </div>
-                  <button className="bg-gray-700 mt-5 rounded-md overflow-hidden transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110">
+                  <div className="bg-gray-700 mt-5 rounded-md overflow-hidden">
                     <div className="flex flex-col justify-center py-2 px-3 text-center text-sm">
                       <span className="text-gray-300">{proj.proj_tit}</span>
                       <p className="block text-gray-500 mt-2">
                         {proj.proj_des}
                       </p>
                     </div>
+                  </div>
+                  <button
+                    className="bg-gray-300 text-gray-800 font-bold rounded border-b-2 border-indigo-500 hover:border-indigo-600 hover:bg-indigo-500 hover:text-white shadow-md py-2 px-6 mt-3 inline-flex items-center mb-2"
+                    onClick={() => window.open(proj.proj_link)}
+                  >
+                    Code
                   </button>
                 </div>
               ))}

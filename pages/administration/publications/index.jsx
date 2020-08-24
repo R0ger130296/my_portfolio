@@ -25,7 +25,7 @@ class Publications extends Component {
 
   render() {
     return (
-      <div className="bg-black h-full">
+      <div>
         <Header />
         <div className="flex justify-between leading-none p-2 md:p-4">
           <div></div>
