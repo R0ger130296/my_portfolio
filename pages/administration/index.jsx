@@ -86,11 +86,7 @@ class Login extends Component {
         </Head>
         <div className="py-2 rounded p-8 bg-white flex flex-col">
           <div className="flex justify-center">
-            <img
-              src="/administration/vimhash.png"
-              alt="logo"
-              className="w-24 h-24"
-            />
+            <img src="/vimhash.webp" alt="logo" className="w-24 h-24" />
           </div>
           <form className="mt-8">
             <div className="py-2 flex flex-col">
