@@ -84,7 +84,7 @@ class Login extends Component {
                     process.env.NEXT_PUBLIC_keyjwt,
                     {
                       algorithm: "HS256",
-                      expiresIn: 900,
+                      expiresIn: 3600,
                     }
                   )),
                   sessionStorage.setItem("secret_token", token),
