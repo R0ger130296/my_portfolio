@@ -59,12 +59,12 @@ class Home extends Component {
             <div className="flex mb-2">
               <h1>Agreements</h1>
               <h1 className="text-red-500 text-sm font-bold px-3 icon-beat">
-                (soon)
+                (beta)
               </h1>
             </div>
             <button
               className="bg-gray-300 text-gray-800 font-bold rounded border-b-2 border-indigo-500 hover:border-indigo-600 hover:bg-indigo-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center mb-2"
-              onClick={() => this.message()}
+              onClick={() => Router.push("/freetimeideas/agreements")}
             >
               Click me!
             </button>

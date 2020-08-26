@@ -69,7 +69,7 @@ class HappyBirthday_En extends Component {
       <div
         className="h-screen w-screen flex flex-col justify-center items-center bg-cover"
         style={{
-          backgroundImage: `url("/freetimeideas/happy-birthday-background.jpg")`,
+          backgroundImage: `url("/freetimeideas/happy-birthday-background.webp")`,
         }}
       >
         <Head>

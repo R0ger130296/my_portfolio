@@ -124,7 +124,7 @@ class Login extends Component {
       <div
         className="w-full h-screen bg-cover flex items-center justify-center bg-gray-600"
         style={{
-          backgroundImage: `url("/freetimeideas/login-background.jpg")`,
+          backgroundImage: `url("/freetimeideas/login-background.webp")`,
         }}
       >
         <Head>
