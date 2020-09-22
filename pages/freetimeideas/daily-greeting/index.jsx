@@ -37,6 +37,7 @@ class DailyGreeting extends Component {
         "Estas como para hacerte el café por las mañanas, caricias por la tarde y el amor por las noches.",
       ],
       welcome: "",
+      day_msm: "Aún trabajo en esto, no me sale lo que quiero :v jaja",
     };
   }
 
@@ -65,7 +66,7 @@ class DailyGreeting extends Component {
   };
 
   render() {
-    const { welcome } = this.state;
+    const { welcome, day_msm } = this.state;
 
     if (this.state.loading) {
       return (
@@ -85,7 +86,7 @@ class DailyGreeting extends Component {
       <div
         className="h-screen w-screen flex flex-col justify-center items-center bg-cover"
         style={{
-          backgroundImage: `url("/freetimeideas/doyoulikeme.webp")`,
+          backgroundImage: `url("/freetimeideas/daily-greeting.webp")`,
         }}
       >
         <Head>
@@ -95,6 +96,11 @@ class DailyGreeting extends Component {
           <h1 className="uppercase font-bold py-1 px-2 my-2 bg-gray-300 bg-opacity-50 text-2xl w-64 text-center">
             {/* Hello my sweetheart ^^ */}
             {welcome}
+          </h1>
+        </div>
+        <div>
+          <h1 className="uppercase font-bold py-1 px-2 my-2 bg-gray-300 bg-opacity-50 text-xl w-64 text-center">
+            {day_msm}
           </h1>
         </div>
         <div className="flex flex-col fixed bottom-0 items-center text-white">

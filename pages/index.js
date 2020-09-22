@@ -3,7 +3,7 @@ import Router from "next/router";
 
 class Home extends Component {
   componentDidMount() {
-    Router.push("/knowledgebase");
+    Router.push("/portfolio");
   }
 
   render() {
