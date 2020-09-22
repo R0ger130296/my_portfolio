@@ -32,6 +32,15 @@ class EducationSection extends Component {
             <hr />
 
             <div className="py-3">
+              <h3 className="font-bold text-2xl">Languages</h3>
+              <p className="text-sm">- Spanish: Native</p>
+              <p className="text-sm">- English: B1.1</p>
+              <p className="text-sm">- German: Basic</p>
+            </div>
+
+            <hr />
+
+            <div className="py-3">
               <span className="font-bold text-2xl border-b-2">Courses</span>
               <h3 className="text-sm flex" style={{ color: "#636363" }}>
                 - JavaScript 2020: Curso desde Principiante hasta Profesional,

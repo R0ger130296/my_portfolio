@@ -5,6 +5,7 @@ import Router from "next/router";
 import { user_authentication } from "../../../services/_webService";
 import { db } from "../../../services/_firebase-freetimeideas";
 import moment from "moment";
+import jwt_decode from "jwt-decode";
 
 class Agreements extends Component {
   constructor(props) {
@@ -106,7 +107,11 @@ class Agreements extends Component {
   };
 
   editAgreement = (id) => {
+    const decoded = jwt_decode(sessionStorage.getItem("secret_token"));
+    console.log(decoded);
+
     db.ref("agreements/agreement" + id).update({
+      agre_lastUserModified: "",
       agre_content: this.state.agre_content,
       agre_date_updated: moment().format("MMMM Do YYYY, h:mm:ss a"),
     });
@@ -181,10 +186,6 @@ class Agreements extends Component {
             <div className="w-3/5 h-screen bg-gray-300 flex flex-col lg:px-32 md:px-12 sm:px-8 px-2">
               <div className="flex justify-between items-center">
                 <div>
-                  <h1 className="m-3">
-                    Users online:
-                    <span>userNames</span>
-                  </h1>
                   <h1 className="m-3">
                     Last modification by:
                     <span>userName</span>

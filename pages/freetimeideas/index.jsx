@@ -80,7 +80,12 @@ class Login extends Component {
                 })
                 .then(
                   (token = jwt.sign(
-                    { data: element.email },
+                    {
+                      data: {
+                        email: element.email,
+                        name: element.name,
+                      },
+                    },
                     process.env.NEXT_PUBLIC_keyjwt,
                     {
                       algorithm: "HS256",

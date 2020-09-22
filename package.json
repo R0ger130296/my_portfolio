@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "version": "0.1.0",
+  "version": "1.5.0",
   "private": true,
   "scripts": {
     "dev": "next",
@@ -9,9 +9,10 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.14.0",
-    "@tinymce/tinymce-react": "^3.6.0",
-    "firebase": "^7.17.2",
+    "@tinymce/tinymce-react": "^3.6.1",
+    "firebase": "^7.20.0",
     "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^3.0.0-beta.2",
     "moment": "^2.27.0",
     "next": "9.4.4",
     "react": "16.13.1",
@@ -19,10 +20,10 @@
     "react-html-parser": "^2.0.2",
     "react-modal": "^3.11.2",
     "react-responsive-carousel": "^3.2.9",
-    "sweetalert2": "^9.17.1"
+    "sweetalert2": "^9.17.2"
   },
   "devDependencies": {
     "postcss-preset-env": "^6.7.0",
-    "tailwindcss": "^1.6.2"
+    "tailwindcss": "^1.8.8"
   }
 }

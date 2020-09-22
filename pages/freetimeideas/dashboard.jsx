@@ -72,14 +72,11 @@ class Home extends Component {
 
           <div className="w-64 border border-indigo-500 rounded flex flex-col text-center items-center mx-12 py-2 my-2">
             <div className="flex mb-2">
-              {/* <h1>New Idea</h1> */}
-              <h1 className="text-red-500 text-sm font-bold px-3 icon-beat">
-                (soon)
-              </h1>
+              <h1>Daily Greeting</h1>
             </div>
             <button
               className="bg-gray-300 text-gray-800 font-bold rounded border-b-2 border-indigo-500 hover:border-indigo-600 hover:bg-indigo-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center mb-2"
-              onClick={() => this.message()}
+              onClick={() => Router.push("/freetimeideas/daily-greeting")}
             >
               Click me!
             </button>
