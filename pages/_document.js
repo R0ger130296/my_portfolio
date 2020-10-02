@@ -8,9 +8,10 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html lang="en">
         <Head>
           <link rel="icon" href="/favicon.png" />
+          <meta name="robots" content="index, follow" />
         </Head>
         <body>
           <Main />

@@ -29,6 +29,7 @@ class ExperienceSection extends Component {
                   Repair and configuration of printers and office/laboratory
                   equipment.
                 </p>
+                <p>Documentation</p>
               </div>
             </div>
 
@@ -46,6 +47,7 @@ class ExperienceSection extends Component {
                   Installation of antivirus security software in the company.
                 </p>
                 <p>Technical support of software and hardware to workers.</p>
+                <p>Documentation</p>
               </div>
             </div>
           </div>

@@ -16,7 +16,16 @@ class Home extends Component {
     return (
       <div>
         <Head>
-          <title>My Portfolio</title>
+          <title>Johao Perlaza - Portfolio</title>
+          <meta
+            name="description"
+            content="Information about me, my acquired knowledge and skills, professional training and portfolio of projects carried out or under development."
+          />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
+          <meta charSet="UTF-8" />
         </Head>
         <Header />
         <HomeSection />
