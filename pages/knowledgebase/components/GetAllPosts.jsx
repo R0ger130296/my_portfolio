@@ -33,7 +33,7 @@ const GetAllPosts = () => {
     );
   } else {
     return (
-      <div className="flex flex-wrap items-center justify-center px-4">
+      <div className="flex flex-wrap items-center justify-center px-4 bg-gray-300">
         {allPosts.map((post) => (
           <div
             className="p-4 max-w-xs mb-6 flex flex-col justify-center items-center"
@@ -41,7 +41,7 @@ const GetAllPosts = () => {
           >
             <img
               alt="pic"
-              className="bg-gray-300 h-56 w-full rounded-lg shadow-md bg-cover bg-center"
+              className="bg-white h-56 w-full rounded-lg shadow-md bg-cover bg-center"
               src={post.post_pic}
             />
             <div className="bg-white shadow-lg rounded-lg overflow-hidden p-5">

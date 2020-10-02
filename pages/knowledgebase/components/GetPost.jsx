@@ -52,16 +52,7 @@ const GetPost = () => {
     );
   } else {
     return (
-      <div className="flex flex-wrap items-center justify-center px-4">
-        <div className="m-3">
-          <button
-            className="bg-white text-gray-800 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
-            onClick={() => Router.push("/knowledgebase")}
-          >
-            <span className="mr-2">Go back</span>
-            <i className="fas fa-undo"></i>
-          </button>
-        </div>
+      <div className="flex flex-wrap items-center justify-center px-4 bg-gray-300">
         {post.map((post) => (
           <div className="my-1 mx-1 lg:my-4 lg:mx-4 w-full" key={post.post_sec}>
             <Head>
@@ -91,6 +82,15 @@ const GetPost = () => {
             </div>
           </div>
         ))}
+        <div className="m-3">
+          <button
+            className="bg-white text-gray-800 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
+            onClick={() => Router.push("/knowledgebase")}
+          >
+            <span className="mr-2">Go back</span>
+            <i className="fas fa-undo"></i>
+          </button>
+        </div>
       </div>
     );
   }
