@@ -1,41 +1,34 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { db } from "../../../services/_firebase";
 
-class ProjectsSection extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true,
-      allProjects: [],
-    };
-  }
+const ProjectsSection = () => {
+  const [loading, setLoading] = useState(true),
+    [allProjects, setAllProjects] = useState([]);
 
-  componentDidMount = () => {
+  useEffect(() => {
     db.ref("projects").on("value", (element) => {
-      let allProjects = [];
+      let getAllProjects = [];
       element.forEach((item) => {
-        allProjects.push(item.val());
+        getAllProjects.push(item.val());
       });
-      this.setState({ allProjects, loading: false });
+      setAllProjects(getAllProjects);
+      setLoading(false);
     });
-  };
+  }, []);
 
-  render() {
-    const { allProjects } = this.state;
-
-    if (this.state.loading) {
-      return (
-        <div className="w-full py-32 flex flex-col items-center justify-center">
-          <img
-            className="w-32 h-32"
-            id="loading"
-            alt="loading"
-            src="/vimhash.webp"
-          />
-          <h1>loading...</h1>
-        </div>
-      );
-    }
+  if (loading) {
+    return (
+      <div className="w-full py-32 flex flex-col items-center justify-center">
+        <img
+          className="w-32 h-32"
+          id="loading"
+          alt="loading"
+          src="/vimhash.webp"
+        />
+        <h1>loading...</h1>
+      </div>
+    );
+  } else {
     return (
       <section className="bg-gray-800 py-20">
         <div className="max-w-5xl px-6 mx-auto text-center">
@@ -69,6 +62,6 @@ class ProjectsSection extends Component {
       </section>
     );
   }
-}
+};
 
 export default ProjectsSection;
