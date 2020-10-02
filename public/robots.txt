@@ -1,4 +1,4 @@
-Sitemap: https://domain.com/api/posts-sitemap
+Sitemap: https://perlazajohao.vercel.app/api/posts-sitemap
 
 User-agent: *
 Disallow: /administration
