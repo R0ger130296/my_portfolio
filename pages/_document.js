@@ -12,6 +12,11 @@ class MyDocument extends Document {
         <Head>
           <link rel="icon" href="/favicon.png" />
           <meta name="robots" content="index, follow" />
+          <meta
+            name="keywords"
+            content="Portfolio, Works, Skills, Perlaza, Johao, Javascript, NextJS, React, Development, software, Software"
+          />
+          <meta name="author" content="Johao Perlaza" />
         </Head>
         <body>
           <Main />
