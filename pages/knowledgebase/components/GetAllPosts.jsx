@@ -1,44 +1,37 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Router from "next/router";
 
 import { db } from "../../../services/_firebase";
 
-class GetAllPosts extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true,
-      allPosts: [],
-    };
-  }
+const GetAllPosts = () => {
+  const [loading, setLoading] = useState(true),
+    [allPosts, setAllPost] = useState([]);
 
-  componentDidMount() {
+  useEffect(() => {
     db.ref("posts").once("value", (element) => {
       let allPosts = [];
       element.forEach((item) => {
         allPosts.push(item.val());
       });
       allPosts.reverse();
-      this.setState({ allPosts, loading: false });
+      setAllPost(allPosts);
+      setLoading(false);
     });
-  }
+  }, []);
 
-  render() {
-    const { allPosts } = this.state;
-
-    if (this.state.loading) {
-      return (
-        <div className="w-full py-32 flex flex-col items-center justify-center">
-          <img
-            className="w-32 h-32"
-            id="loading"
-            alt="loading"
-            src="/vimhash.webp"
-          />
-          <h1>loading...</h1>
-        </div>
-      );
-    }
+  if (loading) {
+    return (
+      <div className="w-full py-32 flex flex-col items-center justify-center">
+        <img
+          className="w-32 h-32"
+          id="loading"
+          alt="loading"
+          src="/vimhash.webp"
+        />
+        <h1>loading...</h1>
+      </div>
+    );
+  } else {
     return (
       <div className="flex flex-wrap items-center justify-center px-4">
         {allPosts.map((post) => (
@@ -81,6 +74,6 @@ class GetAllPosts extends Component {
       </div>
     );
   }
-}
+};
 
 export default GetAllPosts;

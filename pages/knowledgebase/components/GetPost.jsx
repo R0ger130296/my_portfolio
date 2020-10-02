@@ -1,54 +1,56 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Router from "next/router";
+import Head from "next/head";
+
 import ReactHtmlParser from "react-html-parser";
 
 import { db } from "../../../services/_firebase";
 
-class GetPost extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true,
-      post: [],
-    };
-  }
+const GetPost = () => {
+  const [loading, setLoading] = useState(true),
+    [post, setPost] = useState([]);
 
-  componentDidMount() {
+  useEffect(() => {
     const query = Router.query;
-    this.getPost(parseInt(query.id));
-  }
 
-  getPost = (id) => {
     db.ref("posts").once("value", (element) => {
       let post = [];
       element.forEach((item) => {
         post.push(item.val());
       });
       post.forEach((item) => {
-        if (item.post_sec === id) {
+        if (item.post_sec === parseInt(query.id)) {
           let getPost = [];
           getPost.push(item);
-          this.setState({ post: getPost, loading: false });
+          setPost(getPost);
+          setLoading(false);
         }
       });
     });
-  };
+  }, []);
 
-  render() {
-    const { post } = this.state;
-    if (this.state.loading) {
-      return (
-        <div className="w-full py-32 flex flex-col items-center justify-center">
-          <img
-            className="w-32 h-32"
-            id="loading"
-            alt="loading"
-            src="/vimhash.webp"
+  if (loading) {
+    return (
+      <div className="w-full py-32 flex flex-col items-center justify-center">
+        <Head>
+          <title>Johao Perlaza - Loading... </title>
+          <meta name="description" content="Loading..." />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
           />
-          <h1>loading...</h1>
-        </div>
-      );
-    }
+          <meta charSet="UTF-8" />
+        </Head>
+        <img
+          className="w-32 h-32"
+          id="loading"
+          alt="loading"
+          src="/vimhash.webp"
+        />
+        <h1>loading...</h1>
+      </div>
+    );
+  } else {
     return (
       <div className="flex flex-wrap items-center justify-center px-4">
         <div className="m-3">
@@ -62,6 +64,15 @@ class GetPost extends Component {
         </div>
         {post.map((post) => (
           <div className="my-1 mx-1 lg:my-4 lg:mx-4 w-full" key={post.post_sec}>
+            <Head>
+              <title>Johao Perlaza - {post.post_tit} </title>
+              <meta name="description" content={post.post_con} />
+              <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1.0"
+              />
+              <meta charSet="UTF-8" />
+            </Head>
             <div className="flex lg:flex-row md:flex-row sm:flex-row flex-col items-center">
               <img alt="pic" className="h-64 w-64" src={post.post_pic} />
               <div>
@@ -83,6 +94,6 @@ class GetPost extends Component {
       </div>
     );
   }
-}
+};
 
 export default GetPost;
