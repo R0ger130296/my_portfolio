@@ -16,7 +16,7 @@ class Home extends Component {
     return (
       <div>
         <Head>
-          <title>Johao Perlaza - Portfolio</title>
+          <title>Johao Perlaza - My Projects and Personal Information </title>
           <meta
             name="description"
             content="Information about me, my acquired knowledge and skills, professional training and portfolio of projects carried out or under development."
