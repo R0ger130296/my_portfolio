@@ -1,7 +1,9 @@
 import React from "react";
-import Router from "next/router";
+import { useRouter } from "next/router";
 
 const Header = () => {
+  const router = useRouter();
+
   return (
     <header className="bg-white shadow border-t-4 border-indigo-600">
       <div className="container mx-auto px-6 py-4">
@@ -9,7 +11,7 @@ const Header = () => {
           <div>
             <button
               className="flex items-center text-gray-800 hover:text-indigo-600"
-              onClick={() => Router.push("/knowledgebase")}
+              onClick={() => router.push("/knowledgebase")}
             >
               <i className="fas fa-terminal"></i>
               <span className="mx-3 font-medium text-sm md:text-base">

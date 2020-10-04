@@ -1,14 +1,16 @@
 import React from "react";
-import Router from "next/router";
+import { useRouter } from "next/router";
 
 const Header = () => {
+  const router = useRouter();
+
   return (
     <header className="bg-white shadow border-t-4 border-indigo-600">
       <div className="mx-auto px-6 py-3">
         <div className="flex items-center justify-between">
           <button
             className="flex items-center text-gray-800 hover:text-indigo-600"
-            onClick={() => Router.push("/portfolio")}
+            onClick={() => router.push("/portfolio")}
           >
             <i className="fas fa-info"></i>
             <span className="mx-3 font-medium text-sm md:text-base">
@@ -17,7 +19,7 @@ const Header = () => {
           </button>
           <button
             className="text-gray-800 hover:text-indigo-600 border-gray-800 hover:border-indigo-600 border-b-2"
-            onClick={() => Router.push("/knowledgebase")}
+            onClick={() => router.push("/knowledgebase")}
           >
             Knowledge Base
           </button>

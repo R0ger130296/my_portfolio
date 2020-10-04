@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Router from "next/router";
+import { useRouter } from "next/router";
 
 import { db } from "../../../services/_firebase";
 
 const GetAllPosts = () => {
   const [loading, setLoading] = useState(true),
-    [allPosts, setAllPost] = useState([]);
+    [allPosts, setAllPost] = useState([]),
+    router = useRouter();
 
   useEffect(() => {
     db.ref("posts").once("value", (element) => {
@@ -58,8 +59,8 @@ const GetAllPosts = () => {
                 <button
                   className="bg-blue-100 text-blue-500 mt-4 block rounded p-2 text-sm"
                   onClick={() =>
-                    Router.push({
-                      pathname: `/knowledgebase/publicationContent`,
+                    router.push({
+                      pathname: "/knowledgebase/publicationContent",
                       query: { id: post.post_sec },
                     })
                   }
