@@ -1,30 +1,26 @@
 import Head from "next/head";
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import Router from "next/router";
+import { useRouter } from "next/router";
 
 import { user_authentication } from "../../../services/_webService";
 
-class GfPageEn extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true,
-    };
-  }
+const Index = () => {
+  const [loading, SetLoading] = useState(true),
+    router = useRouter();
 
-  componentDidMount() {
+  useEffect(() => {
     if (
       user_authentication(
         sessionStorage.getItem("secret_token"),
         "freetimeideas"
       ) !== false
     ) {
-      this.setState({ loading: false });
+      SetLoading(false);
     }
-  }
+  }, []);
 
-  changePosition = (e) => {
+  const changePosition = (e) => {
     let element = document.getElementById(e);
 
     switch (element.className) {
@@ -37,7 +33,7 @@ class GfPageEn extends Component {
     }
   };
 
-  message = () => {
+  const message = () => {
     Swal.fire({
       position: "center",
       title: "I knew you wanted to be my girlfriend. jajaja :3 <3",
@@ -48,21 +44,19 @@ class GfPageEn extends Component {
     );
   };
 
-  render() {
-    if (this.state.loading) {
-      return (
-        <div className="w-full h-full py-32 flex flex-col items-center justify-center">
-          <img
-            className="w-32 h-32"
-            id="loading"
-            alt="loading"
-            src="/vimhash.webp"
-          />
-          <h1>loading...</h1>
-        </div>
-      );
-    }
-
+  if (loading) {
+    return (
+      <div className="w-full h-full py-32 flex flex-col items-center justify-center">
+        <img
+          className="w-32 h-32"
+          id="loading"
+          alt="loading"
+          src="/vimhash.webp"
+        />
+        <h1>loading...</h1>
+      </div>
+    );
+  } else {
     return (
       <div
         className="h-screen w-screen flex flex-col justify-center items-center bg-cover"
@@ -78,15 +72,15 @@ class GfPageEn extends Component {
           <div id="move" className="flex flex-row w-full justify-between">
             <button
               className="bg-gray-300 text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
-              onClick={() => this.message()}
+              onClick={() => message()}
             >
               Yes
             </button>
 
             <button
               className="bg-gray-300 text-gray-800 font-bold rounded border-b-2 border-red-500 shadow-md py-2 px-6 inline-flex items-center"
-              onMouseEnter={() => this.changePosition("move")}
-              onClick={() => this.changePosition("move")}
+              onMouseEnter={() => changePosition("move")}
+              onClick={() => changePosition("move")}
             >
               No
             </button>
@@ -95,7 +89,7 @@ class GfPageEn extends Component {
         <div className="flex flex-col fixed bottom-0 items-center text-white">
           <button
             className="bg-gray-300 text-gray-800 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center mb-2"
-            onClick={() => Router.push("/freetimeideas/dashboard")}
+            onClick={() => router.push("/freetimeideas/dashboard")}
           >
             <i className="fas fa-undo text-sm mr-2"></i>
             Back
@@ -104,6 +98,6 @@ class GfPageEn extends Component {
       </div>
     );
   }
-}
+};
 
-export default GfPageEn;
+export default Index;

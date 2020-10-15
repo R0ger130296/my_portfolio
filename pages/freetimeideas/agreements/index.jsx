@@ -1,88 +1,82 @@
 import Head from "next/head";
-import React, { Component } from "react";
-import Router from "next/router";
-
-import { user_authentication } from "../../../services/_webService";
-import { db } from "../../../services/_firebase-freetimeideas";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import moment from "moment";
 import jwt_decode from "jwt-decode";
 
-class Agreements extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true,
-      allAgreements: [],
-      agre_sec: null,
-      agre_title: null,
-      agre_content: "",
-      show_content: null,
-      docID_selected: null,
-    };
-  }
+import { user_authentication } from "../../../services/_webService";
+import { db } from "../../../services/_firebase-freetimeideas";
 
-  componentDidMount = async () => {
+const Index = () => {
+  const [loading, SetLoading] = useState(true),
+    [all_agreements, SetAllAgreements] = useState([]),
+    [agre_sec, SetAgreSec] = useState(""),
+    [agre_title, SetAgreTitle] = useState(""),
+    [agre_content, SetAgreContent] = useState(""),
+    [show_content, SetShowContent] = useState(""),
+    [docID_selected, SetADocIDSelected] = useState(""),
+    router = useRouter();
+
+  useEffect(() => {
     if (
       user_authentication(
         sessionStorage.getItem("secret_token"),
         "freetimeideas"
       ) !== false
     ) {
-      await db.ref("agreements").on("value", (element) => {
+      db.ref("agreements").on("value", (element) => {
         let allAgreements = [];
 
         element.forEach((item) => {
           allAgreements.push(item.val());
         });
 
-        this.setState({ allAgreements, loading: false });
+        SetAllAgreements(allAgreements);
+        SetLoading(false);
       });
 
-      await db.ref("agreements").on("value", (element) => {
+      db.ref("agreements").on("value", (element) => {
         let data = [];
         let agre_sec = [];
+
         element.forEach((item) => {
           data.push(item.val());
         });
 
         data.map((element) => agre_sec.push(element.agre_sec));
 
-        agre_sec.sort(this.fromLargestToSmallest);
+        agre_sec.sort(fromLargestToSmallest);
         let id = agre_sec;
 
         if (id.length === 0) {
-          this.setState({ agre_sec: 1 });
+          SetAgreSec(1);
         } else {
-          this.setState({ agre_sec: parseInt(id) + 1 });
+          SetAgreSec(parseInt(id) + 1);
         }
       });
     }
-  };
+  }, []);
 
-  fromLargestToSmallest(elem1, elem2) {
+  const fromLargestToSmallest = (elem1, elem2) => {
     return elem2 - elem1;
-  }
-
-  changeHandler = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
   };
 
-  newAgreement = () => {
+  const newAgreement = () => {
     let title = prompt("Add the agreement title");
 
     if (title != null) {
-      db.ref("agreements/agreement" + this.state.agre_sec).set({
-        agre_sec: this.state.agre_sec,
+      db.ref("agreements/agreement" + agre_sec).set({
+        agre_sec,
         agre_title: title,
         agre_date_created: moment().format("MMMM Do YYYY, h:mm:ss a"),
       });
     }
   };
 
-  selectAgreement = (id) => {
+  const selectAgreement = (id) => {
     let agreementSelected;
 
-    this.state.allAgreements.forEach((item) => {
+    all_agreements.forEach((item) => {
       if (item.agre_sec === id) {
         agreementSelected = item;
       }
@@ -92,48 +86,40 @@ class Agreements extends Component {
       agreementSelected.agre_content !== "" &&
       agreementSelected.agre_content !== undefined
     ) {
-      this.setState({
-        docID_selected: id,
-        agre_content: agreementSelected.agre_content,
-        show_content: true,
-      });
+      SetADocIDSelected(id);
+      SetAgreContent(agreementSelected.agre_content);
+      SetShowContent(true);
     } else {
-      this.setState({
-        docID_selected: id,
-        agre_content: "",
-        show_content: true,
-      });
+      SetADocIDSelected(id);
+      SetAgreContent("");
+      SetShowContent(true);
     }
   };
 
-  editAgreement = (id) => {
+  const editAgreement = (id) => {
     const decoded = jwt_decode(sessionStorage.getItem("secret_token"));
     console.log(decoded);
 
     db.ref("agreements/agreement" + id).update({
       agre_lastUserModified: "",
-      agre_content: this.state.agre_content,
+      agre_content,
       agre_date_updated: moment().format("MMMM Do YYYY, h:mm:ss a"),
     });
   };
 
-  render() {
-    const { allAgreements, agre_content, show_content } = this.state;
-
-    if (this.state.loading) {
-      return (
-        <div className="w-full h-full py-32 flex flex-col items-center justify-center">
-          <img
-            className="w-32 h-32"
-            id="loading"
-            alt="loading"
-            src="/vimhash.webp"
-          />
-          <h1>loading...</h1>
-        </div>
-      );
-    }
-
+  if (loading) {
+    return (
+      <div className="w-full h-full py-32 flex flex-col items-center justify-center">
+        <img
+          className="w-32 h-32"
+          id="loading"
+          alt="loading"
+          src="/vimhash.webp"
+        />
+        <h1>loading...</h1>
+      </div>
+    );
+  } else {
     return (
       <div
         className="h-screen w-screen bg-cover bg-no-repeat"
@@ -150,7 +136,7 @@ class Agreements extends Component {
             <div className="flex justify-center m-3 py-6">
               <button
                 className="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
-                onClick={() => this.newAgreement()}
+                onClick={() => newAgreement()}
               >
                 <span className="mr-2 uppercase">Create new agreement</span>
                 <i className="fas fa-file-medical"></i>
@@ -158,7 +144,7 @@ class Agreements extends Component {
 
               <button
                 className="bg-white text-gray-800 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center mx-1"
-                onClick={() => Router.push("/freetimeideas/dashboard")}
+                onClick={() => router.push("/freetimeideas/dashboard")}
               >
                 <span className="mr-2">Back</span>
                 <i className="fas fa-undo"></i>
@@ -166,11 +152,11 @@ class Agreements extends Component {
             </div>
 
             <div className="flex flex-wrap justify-center w-full">
-              {allAgreements.map((agre) => (
+              {all_agreements.map((agre) => (
                 <button
                   className="flex-shrink-0 overflow-hidden bg-white w-32 h-48 rounded-lg shadow-lg m-3 border-2 hover:bg-yellow-500"
                   key={agre.agre_sec}
-                  onClick={() => this.selectAgreement(agre.agre_sec)}
+                  onClick={() => selectAgreement(agre.agre_sec)}
                 >
                   <span className="block font-semibold text-xl">
                     {agre.agre_title}
@@ -194,9 +180,7 @@ class Agreements extends Component {
                 <div className="m-3">
                   <button
                     className="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center mx-1"
-                    onClick={() =>
-                      this.editAgreement(this.state.docID_selected)
-                    }
+                    onClick={() => editAgreement(docID_selected)}
                   >
                     <span className="mr-2">Save</span>
                     <i className="fas fa-save"></i>
@@ -207,10 +191,9 @@ class Agreements extends Component {
                 <textarea
                   className="h-full w-full text-sm rounded-lg resize-none border border-gray-700 px-6 py-6"
                   placeholder="Write your text..."
-                  name="agre_content"
                   value={agre_content}
                   // onKeyPress={this.editAgreement(this.state.docID_selected)}
-                  onChange={this.changeHandler}
+                  onChange={(event) => SetAgreContent(event.target.value)}
                 ></textarea>
               </div>
             </div>
@@ -228,6 +211,6 @@ class Agreements extends Component {
       </div>
     );
   }
-}
+};
 
-export default Agreements;
+export default Index;

@@ -1,38 +1,30 @@
 import Head from "next/head";
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { db } from "../../../services/_firebase-freetimeideas";
-import Router from "next/router";
+import { useRouter } from "next/router";
 
 import { user_authentication } from "../../../services/_webService";
 
-class MyHeartEn extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true,
-      myheart_sec: "",
-      myheart_name: "",
-    };
-  }
+const Index = () => {
+  const [loading, SetLoading] = useState(true),
+    [myheart_sec, SetMyHeartSec] = useState(""),
+    [myheart_name, SetMyHeartName] = useState(""),
+    router = useRouter();
 
-  changeHandler = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  componentDidMount() {
+  useEffect(() => {
     if (
       user_authentication(
         sessionStorage.getItem("secret_token"),
         "freetimeideas"
       ) !== false
     ) {
-      this.sequence();
-      this.setState({ loading: false });
+      sequence();
+      SetLoading(false);
     }
-  }
+  }, []);
 
-  sequence = () => {
+  const sequence = () => {
     db.ref("myheart_names").on("value", (element) => {
       let myheart_names = [];
       let myheart_sec = [];
@@ -43,24 +35,23 @@ class MyHeartEn extends Component {
 
       myheart_names.map((element) => myheart_sec.push(element.myheart_sec));
 
-      myheart_sec.sort(this.fromLargestToSmallest);
+      myheart_sec.sort(fromLargestToSmallest);
       let id = myheart_sec;
 
       if (id.length === 0) {
-        this.setState({ myheart_sec: 1 });
+        SetMyHeartSec(1);
       } else {
-        this.setState({ myheart_sec: parseInt(id) + 1 });
+        SetMyHeartSec(parseInt(id) + 1);
       }
     });
   };
 
-  fromLargestToSmallest(elem1, elem2) {
+  const fromLargestToSmallest = (elem1, elem2) => {
     return elem2 - elem1;
-  }
+  };
 
-  save = (e) => {
-    e.preventDefault();
-    if (this.state.myheart_name === "") {
+  const save = () => {
+    if (myheart_name === "") {
       Swal.fire({
         position: "center",
         icon: "error",
@@ -69,10 +60,10 @@ class MyHeartEn extends Component {
         timer: 1000,
       });
     } else {
-      db.ref("myheart_names/name" + this.state.myheart_sec)
+      db.ref("myheart_names/name" + myheart_sec)
         .set({
-          myheart_sec: this.state.myheart_sec,
-          myheart_name: this.state.myheart_name,
+          myheart_sec,
+          myheart_name,
         })
         .catch((error) => {
           Swal.fire(
@@ -83,13 +74,15 @@ class MyHeartEn extends Component {
           console.error(error);
         });
 
-      this.myheart(this.state.myheart_name);
-      this.setState({ myheart_name: "", myheart_sec: "" });
-      this.sequence();
+      myheart(myheart_name);
+      SetMyHeartName("");
+      SetMyHeartSec("");
+
+      sequence();
     }
   };
 
-  myheart = (name) => {
+  const myheart = (name) => {
     if (
       name === "Aracely" ||
       name === "aracely" ||
@@ -99,7 +92,9 @@ class MyHeartEn extends Component {
       name === "Encebolladito" ||
       name === "Aracely Mullo" ||
       name === "Arita" ||
-      name === "Aria"
+      name === "Aria" ||
+      name === "Amorcito" ||
+      name === "amorcito"
     ) {
       Swal.fire({
         title: "Yes!",
@@ -140,9 +135,19 @@ class MyHeartEn extends Component {
     }
   };
 
-  render() {
-    const { myheart_name } = this.state;
-
+  if (loading) {
+    return (
+      <div className="w-full h-full py-32 flex flex-col items-center justify-center">
+        <img
+          className="w-32 h-32"
+          id="loading"
+          alt="loading"
+          src="/vimhash.webp"
+        />
+        <h1>loading...</h1>
+      </div>
+    );
+  } else {
     return (
       <div
         className="h-screen w-screen flex flex-col justify-center items-center bg-cover"
@@ -161,16 +166,15 @@ class MyHeartEn extends Component {
             <input
               className="w-full border border-gray-500 rounded py-2 px-4 text-black"
               type="text"
-              name="myheart_name"
               value={myheart_name}
-              onChange={this.changeHandler}
+              onChange={(event) => SetMyHeartName(event.target.value)}
               autoComplete="off"
             />
           </div>
         </div>
         <button
           className="bg-gray-300 text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
-          onClick={this.save}
+          onClick={() => save()}
         >
           <i className="fas fa-check"></i>
           <span className="ml-2">Check</span>
@@ -179,7 +183,7 @@ class MyHeartEn extends Component {
         <div className="flex flex-col fixed bottom-0 items-center text-white">
           <button
             className="bg-gray-300 text-gray-800 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center mb-2"
-            onClick={() => Router.push("/freetimeideas/dashboard")}
+            onClick={() => router.push("/freetimeideas/dashboard")}
           >
             <i className="fas fa-undo text-sm mr-2"></i>
             Back
@@ -188,6 +192,6 @@ class MyHeartEn extends Component {
       </div>
     );
   }
-}
+};
 
-export default MyHeartEn;
+export default Index;

@@ -1,9 +1,11 @@
-import React, { Component } from "react";
-import Router from "next/router";
+import React from "react";
+import { useRouter } from "next/router";
 import Swal from "sweetalert2";
 
-class Header extends Component {
-  logout = () => {
+const Header = () => {
+  const router = useRouter();
+
+  const logout = () => {
     Swal.fire({
       title: "Are you sure you want to go out?",
       icon: "warning",
@@ -21,13 +23,12 @@ class Header extends Component {
           timer: 1000,
         }).then(async () => {
           await sessionStorage.clear("secret_token");
-          Router.push("/freetimeideas");
+          router.push("/freetimeideas");
         });
       }
     });
   };
 
-  render() {
     return (
       <header className="bg-white shadow border-b-4 border-indigo-600">
         <div className="mx-auto px-6 py-3">
@@ -52,7 +53,7 @@ class Header extends Component {
 
             <button
               className="text-gray-800 hover:text-indigo-600 border-gray-800 hover:border-indigo-600 border-b-2"
-              onClick={() => this.logout()}
+              onClick={() => logout}
             >
               <i className="fas fa-sign-out-alt mr-2"></i>
               Logout
@@ -61,7 +62,6 @@ class Header extends Component {
         </div>
       </header>
     );
-  }
 }
 
 export default Header;
