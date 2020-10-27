@@ -1,71 +1,60 @@
 import Head from "next/head";
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-import { db } from "../../../services/_firebase-freetimeideas";
-import Router from "next/router";
+import { useRouter } from "next/router";
 
+import { db } from "../../../services/_firebase-freetimeideas";
 import { user_authentication } from "../../../services/_webService";
 
-class DoYouLikeMe_En extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true,
-      question: null,
-      counter: 0,
-      show_options: false,
-      allQuestions: [],
-    };
-  }
+const Index = () => {
+  const [loading, SetLoading] = useState(true),
+    [question, SetQuestion] = useState(""),
+    [counter, SetCounter] = useState(0),
+    [show_options, SetShowOptions] = useState(false),
+    [all_questions, SetAllQuestions] = useState([]),
+    router = useRouter();
 
-  componentDidMount = async () => {
+  useEffect(() => {
     if (
       user_authentication(
         sessionStorage.getItem("secret_token"),
         "freetimeideas"
       ) !== false
     ) {
-      await db.ref("questions").once("value", (element) => {
+      db.ref("questions").once("value", (element) => {
         let allQuestions = [];
 
         element.forEach((item) => {
           allQuestions.push(item.val());
         });
 
-        this.setState({ allQuestions, loading: false });
+        SetAllQuestions(allQuestions);
+        SetLoading(false);
       });
-      this.showQuestions();
+      showQuestions();
+    }
+  }, []);
+
+  const showQuestions = () => {
+    if (counter <= all_questions.length - 1) {
+      if (all_questions[counter].show_options) {
+        SetShowOptions(true);
+        SetQuestion(all_questions[counter].question);
+        SetCounter(counter + 1);
+      } else {
+        SetShowOptions(false);
+        SetQuestion(all_questions[counter].question);
+        SetCounter(counter + 1);
+      }
+    } else {
+      SetQuestion(
+        "You still need more reasons to like it? Let's go out more often and get to know each other"
+      );
+      SetShowOptions(false);
     }
   };
 
-  showQuestions() {
-    if (this.state.counter <= this.state.allQuestions.length - 1) {
-      if (this.state.allQuestions[this.state.counter].show_options) {
-        this.setState({
-          show_options: true,
-          question: this.state.allQuestions[this.state.counter].question,
-          counter: this.state.counter + 1,
-          // base: this.state.allQuestions[this.state.counter].base,
-        });
-      } else {
-        this.setState({
-          show_options: false,
-          question: this.state.allQuestions[this.state.counter].question,
-          counter: this.state.counter + 1,
-          // base: this.state.allQuestions[this.state.counter].base,
-        });
-      }
-    } else {
-      this.setState({
-        question:
-          "You still need more reasons to like it? Let's go out more often and get to know each other",
-        base: "Do you agree to go out more often? ^^",
-        show_options: false,
-      });
-    }
-  }
-
-  message = () => {
+  const message = () => {
     Swal.fire({
       position: "center",
       title: "I like you too Ara :3",
@@ -74,23 +63,19 @@ class DoYouLikeMe_En extends Component {
     }).then(() => (window.location.href = "https://youtu.be/4G0uhL6W2_k?t=15"));
   };
 
-  render() {
-    const { question, base, show_options } = this.state;
-
-    if (this.state.loading) {
-      return (
-        <div className="w-full h-full py-32 flex flex-col items-center justify-center">
-          <img
-            className="w-32 h-32"
-            id="loading"
-            alt="loading"
-            src="/vimhash.webp"
-          />
-          <h1>loading...</h1>
-        </div>
-      );
-    }
-
+  if (loading) {
+    return (
+      <div className="w-full h-full py-32 flex flex-col items-center justify-center">
+        <img
+          className="w-32 h-32"
+          id="loading"
+          alt="loading"
+          src="/vimhash.webp"
+        />
+        <h1>loading...</h1>
+      </div>
+    );
+  } else {
     return (
       <div
         className="h-screen w-screen flex flex-col justify-center items-center bg-cover"
@@ -109,14 +94,14 @@ class DoYouLikeMe_En extends Component {
             <div className="flex w-full justify-between">
               <button
                 className="bg-gray-300 text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
-                onClick={() => this.message()}
+                onClick={() => message()}
               >
                 Yes
               </button>
 
               <button
                 className="bg-gray-300 text-gray-800 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
-                onClick={() => this.showQuestions()}
+                onClick={() => showQuestions()}
               >
                 No
               </button>
@@ -125,7 +110,7 @@ class DoYouLikeMe_En extends Component {
             <div className="flex w-full justify-center">
               <button
                 className="bg-gray-300 text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
-                onClick={() => this.showQuestions()}
+                onClick={() => showQuestions()}
               >
                 Next
               </button>
@@ -133,15 +118,9 @@ class DoYouLikeMe_En extends Component {
           )}
         </div>
         <div className="flex flex-col fixed bottom-0 items-center text-white">
-          {/* <div
-            className="shadow-xl hover:text-blue-700 px-6"
-            onClick={() => this.props.history.push("es")}
-          >
-            <i className="fas fa-language text-5xl"></i>
-          </div> */}
           <button
             className="bg-gray-300 text-gray-800 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center mb-2"
-            onClick={() => Router.push("/freetimeideas/dashboard")}
+            onClick={() => router.push("/freetimeideas/dashboard")}
           >
             <i className="fas fa-undo text-sm mr-2"></i>
             Back
@@ -150,6 +129,6 @@ class DoYouLikeMe_En extends Component {
       </div>
     );
   }
-}
+};
 
-export default DoYouLikeMe_En;
+export default Index;

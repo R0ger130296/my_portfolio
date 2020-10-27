@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
-import Router from "next/router";
+import { useRouter } from "next/router";
 import Head from "next/head";
 
 import ReactHtmlParser from "react-html-parser";
 
 import { db } from "../../../services/_firebase";
 
-const GetPost = () => {
+const GetPost = ({ id }) => {
   const [loading, setLoading] = useState(true),
-    [post, setPost] = useState([]);
+    [post, setPost] = useState([]),
+    router = useRouter();
 
   useEffect(() => {
-    const query = Router.query;
+    const { id } = router.query;
 
     db.ref("posts").once("value", (element) => {
       let post = [];
@@ -19,7 +20,7 @@ const GetPost = () => {
         post.push(item.val());
       });
       post.forEach((item) => {
-        if (item.post_sec === parseInt(query.id)) {
+        if (item.post_sec === parseInt(id)) {
           let getPost = [];
           getPost.push(item);
           setPost(getPost);
@@ -85,7 +86,7 @@ const GetPost = () => {
         <div className="m-3">
           <button
             className="bg-white text-gray-800 font-bold rounded border-b-2 border-red-500 hover:border-red-600 hover:bg-red-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center"
-            onClick={() => Router.push("/knowledgebase")}
+            onClick={() => router.push("/knowledgebase")}
           >
             <span className="mr-2">Go back</span>
             <i className="fas fa-undo"></i>

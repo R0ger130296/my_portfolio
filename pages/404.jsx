@@ -1,8 +1,10 @@
 import React from "react";
 import Head from "next/head";
-import Router from "next/router";
+import { useRouter } from "next/router";
 
 const NotFound = () => {
+  const router = useRouter();
+
   return (
     <div>
       <Head>
@@ -26,9 +28,9 @@ const NotFound = () => {
 
               <button
                 className="px-4 inline py-2 text-sm font-medium leading-5 shadow text-white transition-colors duration-150 border border-transparent rounded-lg focus:outline-none focus:shadow-outline-blue bg-blue-600 active:bg-blue-600 hover:bg-blue-700"
-                onClick={() => Router.push("/knowledgebase")}
+                onClick={() => router.back()}
               >
-                back to knowledge base page
+                go back
               </button>
             </div>
             <div className="max-w-lg">

@@ -1,42 +1,35 @@
 import Head from "next/head";
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 
 import { user_authentication } from "../../../services/_webService";
 
-class Songs extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true,
-    };
-  }
+const Index = () => {
+  const [loading, SetLoading] = useState(true);
 
-  componentDidMount = async () => {
+  useEffect(() => {
     if (
       user_authentication(
         sessionStorage.getItem("secret_token"),
         "freetimeideas"
       ) !== false
     ) {
-      this.setState({ loading: false });
+      SetLoading(false);
     }
-  };
+  }, []);
 
-  render() {
-    if (this.state.loading) {
-      return (
-        <div className="w-full h-full py-32 flex flex-col items-center justify-center">
-          <img
-            className="w-32 h-32"
-            id="loading"
-            alt="loading"
-            src="/vimhash.webp"
-          />
-          <h1>loading...</h1>
-        </div>
-      );
-    }
-
+  if (loading) {
+    return (
+      <div className="w-full h-full py-32 flex flex-col items-center justify-center">
+        <img
+          className="w-32 h-32"
+          id="loading"
+          alt="loading"
+          src="/vimhash.webp"
+        />
+        <h1>loading...</h1>
+      </div>
+    );
+  } else {
     return (
       <div
         className="h-screen w-screen flex flex-col justify-center items-center bg-cover bg-no-repeat"
@@ -97,6 +90,6 @@ class Songs extends Component {
       </div>
     );
   }
-}
+};
 
-export default Songs;
+export default Index;

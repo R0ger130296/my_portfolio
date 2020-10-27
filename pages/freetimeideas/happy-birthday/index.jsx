@@ -1,31 +1,26 @@
 import Head from "next/head";
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
-
 import { Carousel } from "react-responsive-carousel";
+
 import { user_authentication } from "../../../services/_webService";
 
-class HappyBirthday_En extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true,
-      agreement: false,
-    };
-  }
+const Index = () => {
+  const [loading, SetLoading] = useState(true),
+    [agreement, SetAgreement] = useState(false);
 
-  componentDidMount = async () => {
+  useEffect(() => {
     if (
       user_authentication(
         sessionStorage.getItem("secret_token"),
         "freetimeideas"
       ) !== false
     ) {
-      this.setState({ loading: false });
+      SetLoading(false);
     }
-  };
+  }, []);
 
-  confirmationMessage() {
+  const confirmationMessage = () => {
     Swal.fire({
       title: "Are you sure?",
       text:
@@ -48,23 +43,21 @@ class HappyBirthday_En extends Component {
         );
       }
     });
-  }
+  };
 
-  render() {
-    if (this.state.loading) {
-      return (
-        <div className="w-full h-full py-32 flex flex-col items-center justify-center">
-          <img
-            className="w-32 h-32"
-            id="loading"
-            alt="loading"
-            src="/vimhash.webp"
-          />
-          <h1>loading...</h1>
-        </div>
-      );
-    }
-
+  if (loading) {
+    return (
+      <div className="w-full h-full py-32 flex flex-col items-center justify-center">
+        <img
+          className="w-32 h-32"
+          id="loading"
+          alt="loading"
+          src="/vimhash.webp"
+        />
+        <h1>loading...</h1>
+      </div>
+    );
+  } else {
     return (
       <div
         className="h-screen w-screen flex flex-col justify-center items-center bg-cover"
@@ -76,7 +69,7 @@ class HappyBirthday_En extends Component {
           <title>Happy Birthday</title>
         </Head>
         <div className="flex xl:flex-row lg:flex-row flex-col">
-          {this.state.agreement ? (
+          {agreement ? (
             <div className="flex flex-col items-center justify-center">
               <div className="bg-white py-3 px-3 my-3 mx-3 rounded-lg bg-opacity-50 border-2">
                 <h1 className="text-center font-bold uppercase">
@@ -117,7 +110,7 @@ class HappyBirthday_En extends Component {
               </div>
               <button
                 className="bg-gray-300 text-gray-800 font-bold rounded border-b-2 border-indigo-500 hover:border-indigo-600 hover:bg-indigo-500 hover:text-white shadow-md py-2 px-6 items-center mb-2 w-42"
-                onClick={() => this.confirmationMessage()}
+                onClick={() => confirmationMessage()}
               >
                 <i className="fas fa-heart mr-2"></i>
                 Confirmo para que Johao confirme :v
@@ -153,7 +146,7 @@ class HappyBirthday_En extends Component {
                 </div>
                 <button
                   className="bg-gray-300 text-gray-800 font-bold rounded border-b-2 border-indigo-500 hover:border-indigo-600 hover:bg-indigo-500 hover:text-white shadow-md py-2 px-6 items-center mb-2 w-42"
-                  onClick={() => this.setState({ agreement: true })}
+                  onClick={() => SetAgreement(true)}
                 >
                   <i className="fas fa-heart mr-2"></i>
                   Continue here
@@ -196,6 +189,6 @@ class HappyBirthday_En extends Component {
       </div>
     );
   }
-}
+};
 
-export default HappyBirthday_En;
+export default Index;
