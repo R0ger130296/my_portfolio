@@ -9,9 +9,9 @@ const HomeSection = () => {
         . Nice to meet you.
       </h2>
       <p className="text-gray-600 mt-4">
-        I'm a software development and a web designer student with intermediate
-        level experience, currently I'm specializing in web technologies and UI
-        design, and with little knowledge in mobile and back-end applications.
+        I'm a software development with intermediate level experience, currently
+        I'm specializing in web technologies front-end, and with little
+        knowledge in mobile and back-end applications.
       </p>
 
       <div className="flex items-end justify-center mt-16">

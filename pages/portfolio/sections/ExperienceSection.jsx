@@ -18,11 +18,15 @@ const ExperienceSection = () => {
             <p className="text-sm">Software Developer.</p>
             <p className="text-sm">February 18, 2019 to present.</p>
             <div className="py-3 text-sm" style={{ color: "#636363" }}>
-              <p>Development of POS, inventory system and website.</p>
+              <p>
+                Development of POS, inventory system, biometric control and
+                website.
+              </p>
+              <p>Technical support of software and hardware to workers.</p>
               <p>Network monitoring.</p>
               <p>
                 Installation, configuration and maintenance of operating systems
-                on company computers.
+                on company computers and servers.
               </p>
               <p>
                 Repair and configuration of printers and office/laboratory
