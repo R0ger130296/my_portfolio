@@ -42,6 +42,10 @@ const EducationSection = () => {
           <div className="py-3">
             <span className="font-bold text-2xl border-b-2">Courses</span>
             <h3 className="text-sm flex" style={{ color: "#636363" }}>
+              - Protege tu Negocio: Ciberseguridad en el trabajo
+              <ModalCertificate image="/portfolio/certificates/course-pic10.webp" />
+            </h3>
+            <h3 className="text-sm flex" style={{ color: "#636363" }}>
               - JavaScript 2020: Curso desde Principiante hasta Profesional,
               2020.
               <ModalCertificate image="/portfolio/certificates/course-pic9.webp" />
