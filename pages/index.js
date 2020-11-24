@@ -1,14 +1,10 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import Router from "next/router";
 
-class Home extends Component {
-  componentDidMount() {
+export default function Home() {
+  useEffect(() => {
     Router.push("/portfolio");
-  }
+  }, []);
 
-  render() {
-    return <></>;
-  }
+  return <></>;
 }
-
-export default Home;

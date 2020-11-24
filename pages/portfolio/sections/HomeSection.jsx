@@ -9,9 +9,10 @@ const HomeSection = () => {
         . Nice to meet you.
       </h2>
       <p className="text-gray-600 mt-4">
-        I'm a software development with intermediate level experience, currently
-        I'm specializing in web technologies front-end, and with little
-        knowledge in mobile and back-end applications.
+        I am a software developer with 2 and a half years experience, currently
+        I am specializing in front-end technologies such as ReactJS and Angular,
+        with knowledge in mobile applications with React Native and back-end
+        with NodeJS and Laravel.
       </p>
 
       <div className="flex items-end justify-center mt-16">
