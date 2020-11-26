@@ -32,7 +32,6 @@ export default function GetPost({ id }) {
     });
 
     axios.get(`https://api.github.com/users/vimhash`).then((response) => {
-      console.log(response.data);
       setUser(response.data);
     });
   }, []);
@@ -97,14 +96,8 @@ export default function GetPost({ id }) {
           </main>
         ))}
         <div className="w-1/5 px-4">
-          {/* <div
-            id="app"
-            className="max-w-sm bg-white shadow-lg rounded-lg overflow-hidden my-4 mx-auto"
-          >
-            <github-user-card username="vimhash"></github-user-card>
-          </div> */}
           <div
-            className="cursor-pointer border mt-1"
+            className="cursor-pointer border mt-1 shadow-lg hover:shadow-2xl transition-all duration-150 rounded-lg"
             onClick={() => window.location.assign(user.blog)}
           >
             <div className="flex items-center px-6 py-3 bg-gray-900">
