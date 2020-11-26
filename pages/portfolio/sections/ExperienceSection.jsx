@@ -1,6 +1,6 @@
 import React from "react";
 
-const ExperienceSection = () => {
+export default function ExperienceSection() {
   return (
     <section>
       <div className="h-auto bg-white flex lg:flex-row md:flex-row flex-col lg:px-48 md:px-24 px-4 py-12">
@@ -17,7 +17,7 @@ const ExperienceSection = () => {
             <h3 className="font-bold text-2xl">Labmeta S.A.</h3>
             <p className="text-sm">Software Developer.</p>
             <p className="text-sm">February 18, 2019 to present.</p>
-            <div className="py-3 text-sm" style={{ color: "#636363" }}>
+            <div className="py-3 text-sm text-gray-600">
               <p>
                 Development of POS, inventory system, biometric control and
                 website.
@@ -42,7 +42,7 @@ const ExperienceSection = () => {
             </h3>
             <p className="text-sm">Software Developer.</p>
             <p className="text-sm">August 27, 2018 to October 19, 2018</p>
-            <div className="py-3 text-sm" style={{ color: "#636363" }}>
+            <div className="py-3 text-sm text-gray-600">
               <p>Development of the Requirements Management System.</p>
               <p>Testing of network points.</p>
               <p>Maintenance and assembly of computers and printers.</p>
@@ -55,6 +55,4 @@ const ExperienceSection = () => {
       </div>
     </section>
   );
-};
-
-export default ExperienceSection;
+}

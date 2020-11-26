@@ -6,7 +6,7 @@ import ReactHtmlParser from "react-html-parser";
 
 import { db } from "../../../services/_firebase";
 
-const GetPost = ({ id }) => {
+export default function GetPost({ id }) {
   const [loading, setLoading] = useState(true),
     [post, setPost] = useState([]),
     router = useRouter();
@@ -43,12 +43,11 @@ const GetPost = ({ id }) => {
           <meta charSet="UTF-8" />
         </Head>
         <img
-          className="w-32 h-32"
-          id="loading"
+          className="w-32 h-32 animate-spin"
           alt="loading"
           src="/vimhash.webp"
         />
-        <h1>loading...</h1>
+        <h1 className="animate-pulse uppercase  ">loading...</h1>
       </div>
     );
   } else {
@@ -95,6 +94,4 @@ const GetPost = ({ id }) => {
       </div>
     );
   }
-};
-
-export default GetPost;
+}

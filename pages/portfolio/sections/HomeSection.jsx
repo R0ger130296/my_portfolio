@@ -1,6 +1,6 @@
 import React from "react";
 
-const HomeSection = () => {
+export default function HomeSection() {
   return (
     <section className="bg-white mt-20 max-w-2xl px-6 text-center mx-auto">
       <h2 className="text-3xl font-semibold text-gray-800">
@@ -19,11 +19,9 @@ const HomeSection = () => {
         <img
           className="h-48 w-48 rounded-t-full"
           alt="pic"
-          src="/portfolio/profile-pic.jpg"
+          src="/portfolio/profile-pic.png"
         />
       </div>
     </section>
   );
-};
-
-export default HomeSection;
+}

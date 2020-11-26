@@ -2,6 +2,5 @@ Sitemap: https://perlazajohao.vercel.app/api/posts-sitemap
 
 User-agent: *
 Disallow: /administration
-Disallow: /freetimeideas
 Disallow: /api/*
 Disallow: /*?

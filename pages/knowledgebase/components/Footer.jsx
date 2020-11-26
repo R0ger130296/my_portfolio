@@ -1,12 +1,12 @@
 import React from "react";
 
-const Footer = () => {
+export default function Footer() {
   return (
     <footer className="bg-white px-6 py-4 flex justify-between items-center border-t-2 border-indigo-600">
       <div>
         <div className="text-gray-600">
           &copy; Designed with the{" "}
-          <i className="fas fa-heart text-red-700 icon-beat"></i> by Johao
+          <i className="fas fa-heart text-red-700 animate-bounce"></i> by Johao
           Perlaza
         </div>
       </div>
@@ -30,6 +30,4 @@ const Footer = () => {
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

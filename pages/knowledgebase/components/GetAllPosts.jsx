@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 
 import { db } from "../../../services/_firebase";
 
-const GetAllPosts = () => {
+export default function GetAllPosts() {
   const [loading, setLoading] = useState(true),
     [allPosts, setAllPost] = useState([]),
     router = useRouter();
@@ -23,13 +24,21 @@ const GetAllPosts = () => {
   if (loading) {
     return (
       <div className="w-full py-32 flex flex-col items-center justify-center">
+        <Head>
+          <title>Johao Perlaza - Loading... </title>
+          <meta name="description" content="Loading..." />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
+          <meta charSet="UTF-8" />
+        </Head>
         <img
-          className="w-32 h-32"
-          id="loading"
+          className="w-32 h-32 animate-spin"
           alt="loading"
           src="/vimhash.webp"
         />
-        <h1>loading...</h1>
+        <h1 className="animate-pulse uppercase  ">loading...</h1>
       </div>
     );
   } else {
@@ -75,6 +84,4 @@ const GetAllPosts = () => {
       </div>
     );
   }
-};
-
-export default GetAllPosts;
+}

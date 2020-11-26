@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 
-const Header = () => {
+export default function Header() {
   const router = useRouter();
 
   return (
@@ -40,6 +40,4 @@ const Header = () => {
       </div>
     </header>
   );
-};
-
-export default Header;
+}

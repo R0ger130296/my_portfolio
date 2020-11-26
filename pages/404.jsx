@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-const NotFound = () => {
+export default function NotFound() {
   const router = useRouter();
 
   return (
@@ -41,6 +41,4 @@ const NotFound = () => {
       </div>
     </div>
   );
-};
-
-export default NotFound;
+}

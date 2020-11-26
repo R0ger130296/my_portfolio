@@ -1,6 +1,6 @@
 import React from "react";
 
-const AboutSection = () => {
+export default function AboutSection() {
   return (
     <section className="bg-gray-800 pattern py-20">
       <div className="max-w-5xl px-6 mx-auto text-center">
@@ -17,6 +17,4 @@ const AboutSection = () => {
       </div>
     </section>
   );
-};
-
-export default AboutSection;
+}

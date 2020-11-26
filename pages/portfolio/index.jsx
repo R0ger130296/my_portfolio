@@ -10,7 +10,7 @@ import EducationSection from "./sections/EducationSection.jsx";
 import ContactSection from "./sections/ContactSection.jsx";
 import Footer from "./components/Footer.jsx";
 
-const Home = () => {
+export default function Home() {
   return (
     <div>
       <Head>
@@ -32,6 +32,4 @@ const Home = () => {
       <Footer />
     </div>
   );
-};
-
-export default Home;
+}

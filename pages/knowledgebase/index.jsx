@@ -5,7 +5,7 @@ import Header from "./components/Header.jsx";
 import GetAllPosts from "./components/GetAllPosts.jsx";
 import Footer from "./components/Footer.jsx";
 
-const Home = () => {
+export default function Home() {
   return (
     <div>
       <Head>
@@ -25,6 +25,4 @@ const Home = () => {
       <Footer />
     </div>
   );
-};
-
-export default Home;
+}

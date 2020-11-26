@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+
 import { db } from "../../../services/_firebase";
 
-const ProjectsSection = () => {
+export default function ProjectsSection() {
   const [loading, setLoading] = useState(true),
     [allProjects, setAllProjects] = useState([]);
 
@@ -20,12 +21,11 @@ const ProjectsSection = () => {
     return (
       <div className="w-full py-32 flex flex-col items-center justify-center">
         <img
-          className="w-32 h-32"
-          id="loading"
+          className="w-32 h-32 animate-spin"
           alt="loading"
           src="/vimhash.webp"
         />
-        <h1>loading...</h1>
+        <h1 className="animate-pulse uppercase">loading...</h1>
       </div>
     );
   } else {
@@ -62,6 +62,4 @@ const ProjectsSection = () => {
       </section>
     );
   }
-};
-
-export default ProjectsSection;
+}

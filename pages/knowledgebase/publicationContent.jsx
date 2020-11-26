@@ -4,7 +4,7 @@ import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import GetPost from "./components/GetPost.jsx";
 
-const PostContent = () => {
+export default function PostContent() {
   return (
     <div>
       <Header />
@@ -14,6 +14,4 @@ const PostContent = () => {
       <Footer />
     </div>
   );
-};
-
-export default PostContent;
+}
