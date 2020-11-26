@@ -20,7 +20,7 @@
     "react-html-parser": "^2.0.2",
     "react-modal": "^3.12.1",
     "sitemap": "^6.3.3",
-    "sweetalert2": "^10.10.1"
+    "sweetalert2": "^10.10.3"
   },
   "devDependencies": {
     "postcss-preset-env": "^6.7.0",
