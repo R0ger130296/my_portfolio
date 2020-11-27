@@ -40,7 +40,7 @@ export default function ExperienceSection() {
             <h3 className="font-bold text-2xl">
               SENADI - National Service for Intellectual Rights
             </h3>
-            <p className="text-sm">Software Developer.</p>
+            <p className="text-sm">Internship.</p>
             <p className="text-sm">August 27, 2018 to October 19, 2018</p>
             <div className="py-3 text-sm text-gray-600">
               <p>Development of the Requirements Management System.</p>

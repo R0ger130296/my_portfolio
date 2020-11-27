@@ -20,44 +20,56 @@ export default function ProjectsSection() {
   if (loading) {
     return (
       <div className="w-full py-32 flex flex-col items-center justify-center">
-        <img
-          className="w-32 h-32 animate-spin"
-          alt="loading"
-          src="/vimhash.webp"
-        />
-        <h1 className="animate-pulse uppercase">loading...</h1>
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-gray-900"></div>
       </div>
     );
   } else {
     return (
-      <section className="bg-gray-800 py-20">
-        <div className="max-w-5xl px-6 mx-auto text-center">
-          <h2 className="text-2xl font-semibold text-white">Projects</h2>
-          <div className="flex items-center justify-center mt-10">
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {allProjects.map((proj) => (
-                <div className="w-full" key={proj.proj_sec}>
-                  <div className="flex items-center justify-center h-56 bg-white border-b-8 border-teal-400 rounded-md overflow-hidden">
-                    <img alt="pic" src={proj.proj_pic} />
-                  </div>
-                  <div className="bg-gray-700 mt-5 rounded-md overflow-hidden">
-                    <div className="flex flex-col justify-center py-2 px-3 text-center text-sm">
-                      <span className="text-gray-300">{proj.proj_tit}</span>
-                      <p className="block text-gray-500 mt-2">
-                        {proj.proj_des}
-                      </p>
-                    </div>
-                  </div>
-                  <button
-                    className="bg-gray-300 text-gray-800 font-bold rounded border-b-2 border-indigo-500 hover:border-indigo-600 hover:bg-indigo-500 hover:text-white shadow-md py-2 px-6 mt-3 inline-flex items-center mb-2"
-                    onClick={() => window.open(proj.proj_link)}
-                  >
-                    Code
+      <section className="bg-gray-800">
+        <h2 className="text-2xl font-semibold text-white py-6 text-center uppercase">
+          Projects
+        </h2>
+        <div className="flex flex-row flex-wrap mx-auto">
+          {allProjects.map((proj) => (
+            <div
+              className="transition-all duration-150 flex w-full px-4 py-6 md:w-1/2 lg:w-1/3"
+              key={proj.proj_sec}
+            >
+              <div className="flex flex-col items-stretch min-h-full pb-4 mb-6 transition-all duration-150 bg-white rounded-lg shadow-lg hover:shadow-2xl border">
+                <div className="md:flex-shrink-0">
+                  <img
+                    src={proj.proj_pic}
+                    alt={"pic" + proj.proj_sec}
+                    className="object-fill w-full rounded-lg rounded-b-none md:h-56"
+                  />
+                </div>
+                <div className="flex flex-wrap items-center flex-1 px-4 py-1 text-center mx-auto">
+                  <button className="hover:underline">
+                    <h2 className="text-2xl font-bold tracking-normal text-gray-800">
+                      {proj.proj_tit}
+                    </h2>
                   </button>
                 </div>
-              ))}
+                <hr className="border-gray-300" />
+                <p className="flex flex-row flex-wrap w-full px-4 py-2 overflow-hidden text-sm text-justify text-gray-700">
+                  {proj.proj_des}
+                </p>
+                <hr className="border-gray-300" />
+                <section className="px-4 py-2 mt-2">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center flex-1 justify-center">
+                      <button
+                        className="bg-gray-300 text-gray-800 font-bold rounded border-b-2 border-indigo-500 hover:border-indigo-600 hover:bg-indigo-500 hover:text-white shadow-md py-2 px-6 mt-3 inline-flex items-center mb-2"
+                        onClick={() => window.open(proj.proj_link)}
+                      >
+                        Code
+                      </button>
+                    </div>
+                  </div>
+                </section>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       </section>
     );
